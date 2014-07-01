@@ -3,6 +3,6 @@ class Admin::CategoriesController < Admin::BaseController
   private
 
   def permitted_params
-    params.permit(:category=>[:name, :description, :enabled, :parent_id, :image])
+    params.permit(:category=>[:name, :description, :enabled, :parent_id, :image], seo_attributes: [:title, :description, :keywords])
   end
 end

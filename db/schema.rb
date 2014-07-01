@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140630113059) do
+ActiveRecord::Schema.define(version: 20140701093607) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -59,17 +59,21 @@ ActiveRecord::Schema.define(version: 20140630113059) do
 
   create_table "categories_linked_categories", force: true do |t|
     t.integer "category_id"
-    t.integer "linked_category_id"
   end
 
   create_table "categories_linked_products", force: true do |t|
     t.integer "category_id"
-    t.integer "linked_product_id"
+    t.integer "product_id"
   end
 
   create_table "categories_products", force: true do |t|
     t.integer "category_id"
     t.integer "product_id"
+  end
+
+  create_table "categories_promotions", force: true do |t|
+    t.integer "promotion_id"
+    t.integer "category_id"
   end
 
   create_table "ckeditor_assets", force: true do |t|
@@ -110,7 +114,7 @@ ActiveRecord::Schema.define(version: 20140630113059) do
   end
 
   create_table "pages", force: true do |t|
-    t.string   "title"
+    t.string   "name"
     t.text     "text"
     t.string   "image"
     t.boolean  "enabled"
@@ -135,15 +139,34 @@ ActiveRecord::Schema.define(version: 20140630113059) do
 
   create_table "products_linked_categories", force: true do |t|
     t.integer "product_id"
-    t.integer "linked_category_id"
+    t.integer "category_id"
   end
 
   create_table "products_linked_products", force: true do |t|
     t.integer "product_id"
-    t.integer "linked_product_id"
   end
 
-  create_table "seo", force: true do |t|
+  create_table "products_promotions", force: true do |t|
+    t.integer "promotion_id"
+    t.integer "product_id"
+  end
+
+  create_table "promotions", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "sort_order"
+    t.boolean  "enabled"
+    t.boolean  "has_banner"
+    t.string   "banner"
+    t.boolean  "send_mail"
+    t.date     "start_at"
+    t.date     "end_at"
+    t.integer  "discount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "seos", force: true do |t|
     t.integer  "seoable_id"
     t.string   "seoable_type"
     t.string   "title"

@@ -9,6 +9,6 @@ class Admin::ProductsController < Admin::BaseController
   private
 
   def permitted_params
-    params.permit(:product=>[:name, :description, :price, :count, :enabled, :seo_attributes=>[:title, :description, :keywords], :images_attributes=>[:image, :_destroy, :id], :category_ids=>[]])
+    params.permit(:product=>[:name, :description, :price, :count, :enabled, :seo_attributes=>[:title, :description, :keywords], :images_attributes=>[:image, :_destroy, :id], :category_ids=>[], seo_attributes: [:title, :description, :keywords]])
   end
 end

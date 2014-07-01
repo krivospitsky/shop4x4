@@ -53,7 +53,7 @@
           %ul.nav.navbar-nav
             =render '/categories/tree'
             %li
-              =form_tag search_path, method: 'get', class: 'navbar-form navbar-right', id: 'search_form', role: 'search' do
+              =form_tag catalog_search_path, method: 'get', class: 'navbar-form navbar-right', id: 'search_form', role: 'search' do
                 .input-group
                   %input.form-control{type:"text", placeholder:"Поиск", name: "text"}
                   %span.input-group-btn.input-group-sm

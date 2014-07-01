@@ -3,6 +3,6 @@ class Admin::PagesController < Admin::BaseController
   private
 
   def permitted_params
-    params.permit(:page=>[:title, :text, :position, :sort_order, :enabled, :image])
+    params.permit(:page=>[:name, :text, :position, :sort_order, :enabled, :image], seo_attributes: [:title, :description, :keywords])
   end
 end

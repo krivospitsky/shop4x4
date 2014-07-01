@@ -1,32 +1,31 @@
 %ul.nav.nav-tabs
   %li.active
-    %a(href="#t1" data-toggle="tab") Common
+    %a(href="#common" data-toggle="tab") Common
   %li
-    %a(href="#t2" data-toggle="tab") Images
+    %a(href="#images" data-toggle="tab") Images
   %li
-    %a(href="#t3" data-toggle="tab") SEO
+    %a(href="#seo" data-toggle="tab") SEO
 
 = simple_form_for [:admin, @product], html: {class: 'form-horizontal' }, wrapper: :bootstrap do |f|
   .tab-content
-    .tab-pane.active(id="t1")
+    .tab-pane.active(id="common")
       = f.input :name
-      = f.input :description
+      = f.input :description, as: :ckeditor, input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]} ]}}
       = f.input :price
       = f.input :sku
       = f.input :count
       = f.input :enabled
       = f.association :categories, as: :check_boxes
-      / - all_enabled_categories.each do |category|
-      /   = check_box_tag "product[category_ids][]", category.id, @product.categories.include?(category)
-      /   = category.name
 
+      = f.association :linked_categories, as: :check_boxes
+      = f.association :linked_products, as: :check_boxes
 
-    .tab-pane(id="t2")
+    .tab-pane(id="images")
       = f.simple_fields_for :images do |image|
         = render 'image_fields', :f => image
       = link_to_add_association 'add image', f, :images
 
-    .tab-pane(id="t3")
+    .tab-pane(id="seo")
       = render partial: 'seo', locals: {f: f}
 
   = f.button :submit

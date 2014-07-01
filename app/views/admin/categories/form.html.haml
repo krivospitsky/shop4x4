@@ -1,9 +1,0 @@
-= simple_form_for [:admin, @category], html: {class: 'form-horizontal' }, wrapper: :bootstrap do |f|
-  = f.input :name
-  = f.input :description
-  = f.input :enabled
-  = f.association :parent
-  = f.input :image, as: :image_preview, input_html: {preview_version: :thumb}
-
-  = f.button :submit
-  = link_to 'Cancel', admin_categories_path, class: 'btn btn-default'

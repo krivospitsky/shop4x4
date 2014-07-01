@@ -1,9 +1,23 @@
+%ul.nav.nav-tabs
+  %li.active
+    %a(href="#common" data-toggle="tab") Common
+  %li
+    %a(href="#seo" data-toggle="tab") SEO
+
 = simple_form_for [:admin, @category], html: {class: 'form-horizontal' }, wrapper: :bootstrap do |f|
-  = f.input :name
-  = f.input :description
-  = f.input :enabled
-  = f.association :parent
-  = f.input :image, as: :image_preview, input_html: {preview_version: :thumb}
+  .tab-content
+    .tab-pane.active(id="common")
+      = f.input :name
+      = f.input :description, as: :ckeditor, input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]} ]}}
+      = f.input :enabled
+      = f.association :parent
+      = f.input :image, as: :image_preview, input_html: {preview_version: :thumb}
+
+      = f.association :linked_categories, as: :check_boxes
+      = f.association :linked_products, as: :check_boxes
+
+    .tab-pane(id="seo")
+      = render partial: 'seo', locals: {f: f}
 
   = f.button :submit
   = link_to 'Cancel', admin_categories_path, class: 'btn btn-default'

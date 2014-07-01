@@ -7,9 +7,11 @@ Shop::Application.routes.draw do
   resources :manufacturers
 
   resources :categories
-  resources :products
-
-  get 'search' => 'products#search'
+#  resources :products
+  get 'catalog(/*category_path)/:category_id/product/:id', to: 'products#show'
+  get 'catalog(/*category_path)/:category_id/', to: 'products#index'
+  get 'catalog', to: 'products#index'
+  get 'catalog/search' => 'products#search'
   resources :main
 
   resources :cart_items
@@ -78,6 +80,7 @@ Shop::Application.routes.draw do
     resources :products
     resources :categories
     resources :pages
+    resources :promotions
     get '/settings/edit' => '/admin/settings#edit'
     post '/settings/edit' => '/admin/settings#update'
   end

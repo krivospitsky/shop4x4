@@ -9,9 +9,11 @@ class Product < ActiveRecord::Base
     :join_table => "categories_products")
 
   has_and_belongs_to_many(:linked_categories,
+    class_name: 'Category',
     :join_table => "products_linked_categories")
 
   has_and_belongs_to_many(:linked_products,
+    class_name: 'Product',
     :join_table => "products_linked_products")
 
   def self.search(search)

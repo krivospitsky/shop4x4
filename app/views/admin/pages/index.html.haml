@@ -1,12 +1,16 @@
 %table.table.table-striped
   %thead
     %tr
-      %th= Page.human_attribute_name(:title)
+      %th= Page.human_attribute_name(:name)
+      %th= Page.human_attribute_name(:enabled)
       %th=t '.actions', :default => t("helpers.actions")
   %tbody
     - @pages.each do |page|
       %tr
-        %td= page.title
+        %td= page.name
+        %td
+          -if page.enabled
+            %i.glyphicon.glyphicon-ok
         %td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_page_path(page), :class => 'btn btn-xs btn-default'
           = link_to t('.destroy', :default => t("helpers.links.destroy")), admin_page_path(page), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'

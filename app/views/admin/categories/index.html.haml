@@ -2,13 +2,15 @@
   %thead
     %tr
       %th= Category.human_attribute_name(:name)
-      %th= Category.human_attribute_name(:description)
+      %th= Category.human_attribute_name(:enabled)
       %th=t '.actions', :default => t("helpers.actions")
   %tbody
     - @categories.each do |category|
       %tr
         %td= category.name
-        %td= category.description
+        %td
+          -if category.enabled
+            %i.glyphicon.glyphicon-ok
         %td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_category_path(category), :class => 'btn btn-xs btn-default'
           = link_to t('.destroy', :default => t("helpers.links.destroy")), admin_category_path(category), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'

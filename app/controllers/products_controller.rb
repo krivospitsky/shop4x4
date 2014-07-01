@@ -12,4 +12,7 @@ class ProductsController < ApplicationController
     @title=@product.title
     @cart_item = @current_cart.cart_items.new(product_id: @product.id, quantity:1)
   end
+
+  def index
+  end
 end

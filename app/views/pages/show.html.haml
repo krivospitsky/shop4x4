@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%h1= @page.title
+
+%div= raw @page.text
+
+-if session[:is_admin?]
+  .btn= link_to "редактировать статью", edit_page_path(@page)
+

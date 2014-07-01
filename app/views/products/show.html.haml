@@ -1,0 +1,65 @@
+#notice
+  =notice
+
+#content{itemscope:'', itemtype:"http://schema.org/Product"}
+  %h1{itemprop:"name"}
+    =@title
+  #product-info
+    -if @product.images.count >5
+      .row
+        .col-md-2.col-md-offset4.col-sm-2.col-sm-offset4.prev.icon-angle-up
+    .row
+      .col-sm-5.main-img
+        =link_to(image_tag(@product.images.first.image.url(:product_page), {itemprop:"image", title:@product.name, alt:@product.name}), @product.images.first.image.url, class:"fancybox") if @product.images.first
+
+      -if @product.images.count >1
+        .col-sm-2.col-md-2.images_thumbs
+          %ul
+            -@product.images[1..-1].each do |img|
+              %li
+                .image_thumb
+                  =link_to(image_tag(img.image.url(:thumb), itemprop:"image", title:@product.name, alt:@product.name), img.image.url, class:"fancybox")
+        :javascript
+          $(document).ready(function($) {
+            $(".images_thumbs").jCarouselLite({
+              btnNext: ".next",
+              btnPrev: ".prev",
+              vertical: true,
+              visible: 4
+            });
+          });
+      .col-sm-5.col-md-5.dl-horizontal
+        - if @product.sku
+          .sku
+            %dt Модель
+            %dd= @product.sku
+        .availability
+          %dt Наличие
+          %dd= @product.availability
+        = form_for @cart_item do |f|
+          -#@product.options.all.each do |option|
+            %dt= option.name
+            %dd
+              -option.option_items.all(order:'delta').each do |item|
+                .control-group
+                  .controls
+                    %label.control-label
+                      %input(type="radio" value="#{item.value}" name="#{option.name}" id="#{option.name}_#{item.value}" )
+                      #{item.label}
+
+          .price{itemprop:"offers", itemscope:'', itemtype:"http://schema.org/Offer"}
+            = f.hidden_field :product_id
+            = f.hidden_field :quantity
+            %dt Цена
+            %dd
+              = "#{@product.price} руб."
+              %button.btn.btn-sm.btn-primary{type:'submit'}
+                %span.glyphicon.glyphicon-shopping-cart
+                Купить
+    -if @product.images.count >5
+      .row
+        .col-sm-2.col-sm-offset4.col-md-2.col-md-offset4.next.icon-angle-down
+
+    .row
+      .description{itemprop:"description"}
+        =raw @product.description

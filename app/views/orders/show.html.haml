@@ -1,0 +1,46 @@
+%p#notice= notice
+
+%dl.dl-horizontal
+  %dt Имя
+  %dd
+    =@order.name
+
+%dl.dl-horizontal
+  %dt e-mail
+  %dd
+    =@order.email
+
+%dl.dl-horizontal
+  %dt телефон
+  %dd
+    =@order.phone
+
+%dl.dl-horizontal
+  %dt Индекс
+  %dd
+    =@order.zip
+
+%dl.dl-horizontal
+  %dt Город
+  %dd
+    =@order.city
+
+%dl.dl-horizontal
+  %dt Адрес
+  %dd
+    =@order.address
+
+%dl.dl-horizontal
+  %dt Коментарий
+  %dd
+    =@order.comment
+
+=render 'cart/cart_items', cart: Cart.find(@order.cart_id)
+
+%p
+  %b State:
+  = @order.state
+
+= link_to 'Edit', edit_order_path(@order)
+\|
+= link_to 'Back', orders_path

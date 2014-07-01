@@ -1,0 +1,6 @@
+=simple_form_for :settings, html: {class: 'form-horizontal' }, wrapper: :bootstrap do |settings_form|
+  = settings_form.input :site_title, input_html: { value: Settings.site_title }
+  = settings_form.input :site_url, input_html: { value: Settings.site_url }
+  = settings_form.input :owner_phone, input_html: { value: Settings.owner_phone }
+  = settings_form.input :owner_email, input_html: { value: Settings.owner_email }
+  = settings_form.button :submit

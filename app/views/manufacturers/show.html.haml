@@ -1,0 +1,15 @@
+-content_for :title, "#{@manufacturer.name} - Sling40.ru"
+%h1= @manufacturer.name
+.row
+	%img{src:@manufacturer.image.url(:medium), class:'span3'}
+	.span6= @manufacturer.description
+
+
+.row
+	- @manufacturer.products.each do |product|
+		=  render "/products/show_item", :product=>product
+
+.row
+	-if session[:is_admin?]
+		.btn= link_to "редактировать производителя", edit_manufacturer_path(@manufacturer.id)
+

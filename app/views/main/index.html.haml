@@ -1,0 +1,27 @@
+.carousel.slide#carousel-example-generic
+  %ol.carousel-indicators
+    %li.active{data:{target:"#carousel-example-generic", :"slide-to"=>0}}
+    %li{data:{target:"#carousel-example-generic", :"slide-to"=>1}}
+    %li{data:{target:"#carousel-example-generic", :"slide-to"=>2}}
+
+  .carousel-inner
+    .item.active
+      =image_tag "slider1.png"
+      .carousel-caption
+        %h3
+          Тест1
+    .item
+      =image_tag "slider1.png"
+      .carousel-caption
+        %h3
+          Тест2
+    .item
+      =image_tag "slider1.png"
+      .carousel-caption
+        %h3
+          Тест3
+
+  %a.left.carousel-control{href:"#carousel-example-generic", :"data-slide"=>"prev"}
+    %span.glyphicon.glyphicon-chevron-left
+  %a.right.carousel-control{href:"#carousel-example-generic", :"data-slide"=>"next"}
+    %span.glyphicon.glyphicon-chevron-right

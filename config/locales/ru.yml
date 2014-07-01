@@ -1,0 +1,39 @@
+ru:
+  title:
+    pages:
+      index: "Cтраницы"
+      new: "Создание новой страницы"
+      edit: "Редактирование страницы"
+    categories:
+      index: "Категории"
+      new: "Создание новой категории"
+      edit: "Редактирование категории"
+    products:
+      index: "Товары"
+      new: "Создание нового товара"
+      edit: "Редактирование товара"
+  activerecord:
+    models:
+      page: Страница
+    attributes:
+      page:
+        title: "Заголовок"
+        text: Текст
+        position: Показывать в
+  helpers:
+    submit:
+      page:
+        create: "Добавить %{model}"
+        update: "Сохранить изменения"
+  simple_form:
+    options:
+      page:
+        position:
+          menu: 'меню'
+          footer: 'футере'
+          menu_and_footer: 'меню и футере'
+  helpers:
+    links:
+      new: Добавить
+      edit: Правка
+      destroy: Удалить

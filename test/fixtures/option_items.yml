@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  value: MyString
+  option_id: 1
+  delta: 1
+
+two:
+  value: MyString
+  option_id: 1
+  delta: 1

@@ -4,8 +4,6 @@ source 'http://rubygems.org'
 gem 'rails', '~>4.1.0'
 
 gem 'pg'
-gem 'sqlite3'
-gem 'unicorn', :platforms => :ruby
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -26,12 +24,6 @@ gem 'jquery-ui-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
-end
-
-gem 'tzinfo-data'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -43,10 +35,6 @@ gem 'sass-rails', '>= 3.2'
 gem 'bootstrap-sass', '~> 3.1.1'
 
 gem 'haml-rails', :github => 'indirect/haml-rails'
-
-group :development do
-  gem "erb2haml"
-end
 
 gem 'fancybox2-rails', '~> 0.2.4'
 
@@ -71,3 +59,10 @@ gem 'mini_magick'
 gem 'devise'
 gem 'cancan'
 gem "rails-settings-cached", "0.4.1"
+
+gem 'unicorn', :platforms => :ruby
+
+group :development, :test do
+  gem 'sqlite3'
+  gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+end

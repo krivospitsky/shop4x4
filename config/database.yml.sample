@@ -1,0 +1,21 @@
+common: &common
+  adapter: postgresql
+  encoding: utf8
+  username: postgres
+  password:
+  pool: 5
+  timeout: 5000
+  min_messages: warning
+  host: 'localhost'
+
+development:
+  <<: *common
+  database: master_shop
+
+test:
+  <<: *common
+  database: master_shop_test
+
+production:
+  <<: *common
+  database: master_shop_production

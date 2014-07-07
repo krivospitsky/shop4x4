@@ -18,3 +18,9 @@
 /public/ckeditor_assets
 /public/uploads
 /config/database.yml
+
+# Игнорим rvmrc и ruby-version
+/.rvmrc
+/.powrc
+/.ruby-version
+/.ruby-gemset

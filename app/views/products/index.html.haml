@@ -1,0 +1,18 @@
+%h1= @title
+
+-if @category
+	.row
+		.col-md-9= @category.description
+	-if @category.children
+		.row
+			- @category.children.each do |child|
+				=  child.name
+
+-if @products && ! @products.empty?
+	.row
+		- @products.each do |product|
+			=render "/products/show_item", category: @category, product: product, :cart_item=>@current_cart.cart_items.new(product_id: product.id, quantity:1)
+-else
+	.row
+		Товары не найдены
+

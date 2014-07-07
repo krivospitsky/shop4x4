@@ -17,11 +17,7 @@ class Product < ActiveRecord::Base
     :join_table => "products_linked_products")
 
   def self.search(search)
-    if search
-      find(:all, :conditions => ['lower(name) LIKE ?', "%#{search.downcase}%"])
-    else
-      find(:all)
-    end
+    where('lower(name) LIKE :search', search: search.downcase)
   end
 
   def availability

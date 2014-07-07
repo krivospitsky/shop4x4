@@ -64,5 +64,7 @@ gem 'unicorn', :platforms => :ruby
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+  gem 'seed_dump'
 end
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]

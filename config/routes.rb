@@ -2,20 +2,19 @@ Shop::Application.routes.draw do
   resources :orders
 
   mount Ckeditor::Engine => '/ckeditor'
+
   resources :pages
-
-  resources :manufacturers
-
-  resources :categories
+#  resources :categories
 #  resources :products
-  get 'catalog(/*category_path)/:category_id/product/:id', to: 'products#show'
-  get 'catalog(/*category_path)/:category_id/', to: 'products#index'
-  get 'catalog', to: 'products#index'
+
   get 'catalog/search' => 'products#search'
+  get 'catalog(/*category_path)/product/:id', to: 'products#show', as: :original_product
+  get 'catalog(/*category_path)/:category_id/', to: 'products#index', as: :category
+  get 'catalog', to: 'products#index'
   resources :main
 
   resources :cart_items
-  get 'login' => 'auth#index'
+ # get 'login' => 'auth#index'
   post '/cart/add' => 'cart#add'
   get '/cart' => 'cart#index'
   get '/cart/delete/:product_id' => 'cart#delete'

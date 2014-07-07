@@ -22,4 +22,9 @@ class Category < ActiveRecord::Base
 
   attr_accessor :delete_image
   before_validation { self.image.clear if self.delete_image == '1' }
+
+  def path
+    return parent.path+"/"+id.to_s if parent
+    id.to_s
+  end
 end

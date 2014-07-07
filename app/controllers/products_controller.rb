@@ -14,5 +14,12 @@ class ProductsController < ApplicationController
   end
 
   def index
+    if params[:category_id]
+      @category = Category.find(params[:category_id])
+      @products=@category.products.where(enabled:true)
+      @title = @category.name
+    else
+      @products=Product.all
+    end
   end
 end

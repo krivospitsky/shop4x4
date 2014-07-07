@@ -1,16 +1,16 @@
 .col-md-3.col-sm-4.col-xs-6
   .thumbnail.shadow
     .name.text-center
-      =link_to product.name, product_path(product)
+      =link_to product.name, product_path(product, category)
     .image.text-center
-      =link_to image_tag(product.images.first.image.url(:product_list)), product_path(product) if product.images.first
+      =link_to image_tag(product.images.first.image.url(:product_list)), product_path(product, category) if product.images.first
     .price.text-center
       = "Цена #{product.price} руб."
       = form_for cart_item do |f|
         = f.hidden_field :product_id
         = f.hidden_field :quantity
         .btn-group
-          %a.btn.btn-primary.btn-sm{type:'button', href:product_path(product)}
+          %a.btn.btn-primary.btn-sm{type:'button', href:product_path(product, category)}
             Подробнее
           %button.btn.btn-success.btn-sm{type:'submit'}
             %span.glyphicon.glyphicon-shopping-cart

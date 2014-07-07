@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.all
+//= require jquery.ui.datepicker
 //= require fancybox
 //= require jcarousellite_1.0.1.pack
 //= require bootstrap

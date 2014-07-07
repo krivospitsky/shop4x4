@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140701093607) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -28,8 +31,8 @@ ActiveRecord::Schema.define(version: 20140701093607) do
     t.datetime "updated_at"
   end
 
-  add_index "admins", ["email"], name: "index_admins_on_email", unique: true
-  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
+  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
   create_table "cart_items", force: true do |t|
     t.integer  "cart_id"
@@ -39,7 +42,7 @@ ActiveRecord::Schema.define(version: 20140701093607) do
     t.datetime "updated_at"
   end
 
-  add_index "cart_items", ["product_id", "cart_id"], name: "index_cart_items_on_product_id_and_cart_id"
+  add_index "cart_items", ["product_id", "cart_id"], name: "index_cart_items_on_product_id_and_cart_id", using: :btree
 
   create_table "carts", force: true do |t|
     t.datetime "created_at"
@@ -89,8 +92,8 @@ ActiveRecord::Schema.define(version: 20140701093607) do
     t.datetime "updated_at"
   end
 
-  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable"
-  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type"
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
   create_table "images", force: true do |t|
     t.integer  "product_id"
@@ -185,6 +188,6 @@ ActiveRecord::Schema.define(version: 20140701093607) do
     t.datetime "updated_at"
   end
 
-  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
+  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
 
 end

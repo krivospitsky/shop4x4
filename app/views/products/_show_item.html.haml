@@ -5,7 +5,13 @@
     .image.text-center
       =link_to image_tag(product.images.first.image.url(:product_list)), product_path(product, category) if product.images.first
     .price.text-center
-      = "Цена #{product.price} руб."
+      Цена
+      -if product.discount_price
+        %del= product.price
+        =product.discount_price
+        руб.
+      -else
+        = "#{product.price} руб."
       = form_for cart_item do |f|
         = f.hidden_field :product_id
         = f.hidden_field :quantity

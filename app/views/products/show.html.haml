@@ -52,7 +52,12 @@
             = f.hidden_field :quantity
             %dt Цена
             %dd
-              = "#{@product.price} руб."
+              -if @product.discount_price
+                %del= @product.price
+                =@product.discount_price
+                руб.
+              -else
+                = "#{@product.price} руб."
               %button.btn.btn-sm.btn-primary{type:'submit'}
                 %span.glyphicon.glyphicon-shopping-cart
                 Купить

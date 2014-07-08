@@ -28,28 +28,28 @@ class Product < ActiveRecord::Base
 
   def linked
     result=[]
-    linked_products.each do |prod|
-      result << prod
-    end
+
+    result += linked_products.all
 
     linked_categories.each do |cat|
-      cat.products.each do |prod|
-        result << prod
-      end
+      result += cat.products.all
     end
 
     categories.each do |cat|
-      cat.linked_products.each do |prod|
-        result << prod
-      end
+      result += cat.linked_products.all
 
       cat.linked_categories.each do |cat|
-        cat.products.each do |prod|
-          result << prod
-        end
+        result += cat.products.all
       end
     end
     result.uniq[0..7]
   end
 
+  def discount_price
+    max_discount1 = Promotion.current.joins(:products).where('products.id = ?', id).maximum(:discount) || 0
+    max_discount2 = Promotion.current.joins(:categories).where('categories.id in (?)', categories.pluck(:id)).maximum(:discount) || 0
+    max_discount = max_discount1 > max_discount2 ? max_discount1 : max_discount2
+    return price * (100 - max_discount) / 100 if max_discount
+    false
+  end
 end

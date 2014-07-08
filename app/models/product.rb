@@ -45,13 +45,14 @@ class Product < ActiveRecord::Base
         result += cat.products.enabled
       end
     end
+    result-=[self]
     result.uniq[0..7]
   end
 
   def discount_price
     max_discount1 = Promotion.current.joins(:products).where('products.id = ?', id).maximum(:discount) || 0
     max_discount2 = Promotion.current.joins(:categories).where('categories.id in (?)', categories.pluck(:id)).maximum(:discount) || 0
-    max_discount = max_discount1 > max_discount2 ? max_discount1 : max_discount2
+    max_discount = [max_discount1, max_discount2].max
     return price * (100 - max_discount) / 100 if max_discount
     false
   end

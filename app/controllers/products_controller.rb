@@ -10,6 +10,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @title=@product.title
+    @linked=@product.linked
     @cart_item = @current_cart.cart_items.new(product_id: @product.id, quantity:1)
   end
 

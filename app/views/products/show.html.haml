@@ -63,3 +63,8 @@
     .row
       .description{itemprop:"description"}
         =raw @product.description
+  -if ! @linked.empty?
+    #related.row
+      %h2 Связанные товары
+      - @linked.each do |product|
+        =render "/products/show_item", product: product, category: nil, :cart_item=>@current_cart.cart_items.new(product_id: product.id, quantity:1)

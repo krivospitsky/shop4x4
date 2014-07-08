@@ -14,7 +14,8 @@ class Category < ActiveRecord::Base
 
   has_and_belongs_to_many(:linked_categories,
     class_name: 'Category',
-    :join_table => "categories_linked_categories")
+    :join_table => "categories_linked_categories",
+    :association_foreign_key=> 'linked_category_id')
 
   mount_uploader :image, ImageUploader
 
@@ -27,4 +28,5 @@ class Category < ActiveRecord::Base
     return parent.path+"/"+id.to_s if parent
     id.to_s
   end
+
 end

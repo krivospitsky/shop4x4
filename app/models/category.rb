@@ -17,6 +17,9 @@ class Category < ActiveRecord::Base
     :join_table => "categories_linked_categories",
     :association_foreign_key=> 'linked_category_id')
 
+  scope :enabled, -> { where(enabled: 't') }
+
+
   mount_uploader :image, ImageUploader
 
   include  Seoable

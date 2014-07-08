@@ -3,6 +3,9 @@ class Product < ActiveRecord::Base
 	has_many :images, :dependent => :destroy
   include  Seoable
 
+  scope :enabled, -> { where(enabled: 't') }
+
+
   accepts_nested_attributes_for :images, allow_destroy:true
 
   has_and_belongs_to_many(:categories,
@@ -29,17 +32,17 @@ class Product < ActiveRecord::Base
   def linked
     result=[]
 
-    result += linked_products.all
+    result += linked_products.enabled
 
     linked_categories.each do |cat|
-      result += cat.products.all
+      result += cat.products.enabled
     end
 
     categories.each do |cat|
-      result += cat.linked_products.all
+      result += cat.linked_products.enabled
 
       cat.linked_categories.each do |cat|
-        result += cat.products.all
+        result += cat.products.enabled
       end
     end
     result.uniq[0..7]

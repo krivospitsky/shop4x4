@@ -1,11 +1,6 @@
 class Admin::ProductsController < Admin::BaseController
   defaults :resource_class => Product
 
-  def all_enabled_categories
-    Category.where(enabled: true)
-  end
-  helper_method :all_enabled_categories
-
   private
 
   def permitted_params

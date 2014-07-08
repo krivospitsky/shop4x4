@@ -17,10 +17,10 @@ class ProductsController < ApplicationController
   def index
     if params[:category_id]
       @category = Category.find(params[:category_id])
-      @products=@category.products.where(enabled:true)
+      @products=@category.products.enabled
       @title = @category.name
     else
-      @products=Product.all
+      @products=Product.enabled
     end
   end
 end

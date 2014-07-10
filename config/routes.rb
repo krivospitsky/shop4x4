@@ -1,4 +1,5 @@
 Shop::Application.routes.draw do
+  devise_for :users
   resources :orders
 
   mount Ckeditor::Engine => '/ckeditor'

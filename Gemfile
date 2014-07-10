@@ -61,10 +61,15 @@ gem 'cancan'
 gem "rails-settings-cached", "0.4.1"
 
 gem 'unicorn', :platforms => :ruby
+gem 'rails-i18n'
 
 group :development, :test do
   gem 'sqlite3'
   gem 'seed_dump'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'ffaker'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]

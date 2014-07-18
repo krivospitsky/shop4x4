@@ -6,6 +6,18 @@ class ApplicationController < ActionController::Base
 
   include CurrentCart
 
+  layout :layout_by_resource
+
+  protected
+
+  def layout_by_resource
+    if devise_controller? && resource_name == :admin
+      "admin"
+    else
+      "application"
+    end
+  end
+
   private
 
   def get_current_cart

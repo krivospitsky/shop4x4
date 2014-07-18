@@ -77,7 +77,9 @@ Shop::Application.routes.draw do
   devise_for :admins
 
   namespace :admin do
-    resources :products
+    resources :products do
+      get :autocomplete, :on => :collection
+    end
     resources :categories
     resources :pages
     resources :promotions

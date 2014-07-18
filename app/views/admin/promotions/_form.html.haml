@@ -13,8 +13,15 @@
       = f.input :has_banner
       = f.input :banner, as: :image_preview, input_html: {preview_version: :thumb}
       = f.input :send_mail
-      = f.input :start_at, as: :string
-      = f.input :end_at, as: :string
+      .row
+        %label.col-sm-3.control-label
+          Период проведения
+        .col-sm-6
+          c
+          = f.input_field :start_at, as: :string
+          по
+          = f.input_field :end_at, as: :string
+
       = f.input :discount
 
       = f.association :categories, as: :check_boxes

@@ -12,11 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.datepicker
 //= require fancybox
 //= require jcarousellite_1.0.1.pack
 //= require bootstrap
-//= require ckeditor/init
-//= require cocoon
 //= require_tree .
 

@@ -15,10 +15,35 @@
       = f.input :sku
       = f.input :count
       = f.input :enabled
-      = f.association :categories, as: :check_boxes
+      = f.association :categories
 
-      = f.association :linked_categories, as: :check_boxes
-      = f.association :linked_products, as: :check_boxes
+      = f.association :linked_categories
+      / = f.association :linked_products
+
+      %label.select.optional.col-sm-3.control-label
+        Связанные товары
+      .col-sm-9
+        %ul.list-group.linked_products
+          - @product.linked_products.each do |linked|
+            %li.list-group-item
+              = linked.name
+              &nbsp;
+              %a.remove_linked_product.btn.btn-danger.btn-xs{id: linked.id, href: "#"}
+                Remove
+              %input{type: "hidden", name: "product[linked_product_ids][]", value: linked.id}
+          %li.list-group-item
+            .btn-group
+              %button.btn.btn-default.btn-xs.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
+                Добавить связанный товар
+                %span.glyphicon.glyphicon-plus
+              %ul.dropdown-menu{role: "menu"}
+                %li
+                  %a
+                    .input-group
+                      %span.input-group-addon
+                        %span.glyphicon.glyphicon-search
+                      %input.form-control{type: "text"}
+                %li.divider
 
     .tab-pane(id="images")
       = f.simple_fields_for :images do |image|

@@ -15,35 +15,28 @@
       = f.input :sku
       = f.input :count
       = f.input :enabled
-      = f.association :categories
+      /= f.association :categories
 
-      = f.association :linked_categories
+      /= f.association :linked_categories
       / = f.association :linked_products
 
-      %label.select.optional.col-sm-3.control-label
-        Связанные товары
-      .col-sm-9
-        .linked_products
-          - @product.linked_products.each do |item|
-            .item.row
-              .col-sm-10
-                = item.name
-              .col-sm-2
-                %a.remove_linked_product.btn.btn-danger.btn-xs{id: item.id, href: "#"}
-                  Удалить
-              %input{type: "hidden", name: "product[linked_product_ids][]", value: item.id}
-          .item.search_input
-            .btn-group
-              %button.btn.btn-success.btn-xs.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
-                Добавить
-              %ul.dropdown-menu{role: "menu", "data-ajax-url"=>'/admin/products/autocomplete'}
-                %li
-                  %a
-                    .input-group
-                      %span.input-group-addon
-                        %span.glyphicon.glyphicon-search
-                      %input.form-control{type: "text"}
-                %li.divider
+      .row
+        %label.select.optional.col-sm-3.control-label
+          Категории
+        .col-sm-9
+          = render partial: 'ajax_selector', locals: {field_name: 'category', items: @product.categories, ajax_url: '/admin/categories/autocomplete'}
+
+      .row
+        %label.select.optional.col-sm-3.control-label
+          Связанные категории
+        .col-sm-9
+          = render partial: 'ajax_selector', locals: {field_name: 'linked_category', items: @product.linked_categories, ajax_url: '/admin/categories/autocomplete'}
+
+      .row
+        %label.select.optional.col-sm-3.control-label
+          Связанные товары
+        .col-sm-9
+          = render partial: 'ajax_selector', locals: {field_name: 'linked_product', items: @product.linked_products, ajax_url: '/admin/products/autocomplete'}
 
     .tab-pane(id="images")
       = f.simple_fields_for :images do |image|

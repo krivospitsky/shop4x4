@@ -1,5 +1,13 @@
 class Admin::CategoriesController < Admin::BaseController
   defaults :resource_class => Category
+
+  def autocomplete
+    @category = Category.enabled.where("name like ?", "%#{params[:name]}%").limit(10)
+    respond_to do |format|
+      format.json { render json: @category.map { |category| category.as_json(:only => :id, :methods => :name) } }
+    end
+  end
+
   private
 
   def permitted_params

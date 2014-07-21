@@ -31,13 +31,25 @@ ActiveRecord::Schema.define(version: 20140708112822) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
 
+  create_table "cart_items", force: true do |t|
+    t.integer  "product_id"
+    t.integer  "cart_id"
+    t.integer  "quantity"
+    t.integer  "variant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cart_items", ["cart_id"], name: "index_cart_items_on_cart_id"
+  add_index "cart_items", ["product_id"], name: "index_cart_items_on_product_id"
+
   create_table "carts", force: true do |t|
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "carts", ["user_id"], name: "index_carts_on_user_id", using: :btree
+  add_index "carts", ["user_id"], name: "index_carts_on_user_id"
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -92,22 +104,6 @@ ActiveRecord::Schema.define(version: 20140708112822) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "items", force: true do |t|
-    t.integer  "product_id"
-    t.integer  "cart_id"
-    t.integer  "order_id"
-    t.integer  "quantity"
-    t.decimal  "price"
-    t.integer  "variable_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "items", ["cart_id"], name: "index_items_on_cart_id", using: :btree
-  add_index "items", ["order_id"], name: "index_items_on_order_id", using: :btree
-  add_index "items", ["product_id"], name: "index_items_on_product_id", using: :btree
-  add_index "items", ["variable_id"], name: "index_items_on_variable_id", using: :btree
 
   create_table "orders", force: true do |t|
     t.integer  "cart_id"
@@ -213,7 +209,7 @@ ActiveRecord::Schema.define(version: 20140708112822) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

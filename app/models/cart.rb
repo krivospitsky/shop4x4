@@ -1,5 +1,5 @@
 class Cart < ActiveRecord::Base
-  has_many :items, dependent: :destroy
+  has_many :cart_items, dependent: :destroy
   belongs_to :user
 
   def self.get(cart_id = nil, user_id = nil)

@@ -1,50 +1,72 @@
-%ul.nav.nav-tabs
-  %li.active
-    %a(href="#common" data-toggle="tab") Common
-  %li
-    %a(href="#images" data-toggle="tab") Images
-  %li
-    %a(href="#seo" data-toggle="tab") SEO
+= form_for [:admin, @product], html: {class: 'form-horizontal' } do |f|
+  .form-group
+    =f.label :name, class: "col-sm-3 control-label"
+    .col-sm-9
+      =f.text_field :name, class: "form-control"
 
-= simple_form_for [:admin, @product], html: {class: 'form-horizontal' }, wrapper: :bootstrap do |f|
-  .tab-content
-    .tab-pane.active(id="common")
-      = f.input :name
-      = f.input :description, as: :ckeditor, input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]} ]}}
-      = f.input :price
-      = f.input :sku
-      = f.input :count
-      = f.input :enabled
-      /= f.association :categories
+  .form-group
+    =f.label :description, class: "col-sm-3 control-label"
+    .col-sm-9
+      =f.cktext_area :description, ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]} ]}
 
-      /= f.association :linked_categories
-      / = f.association :linked_products
+  .form-group
+    =f.label :variants, class: "col-sm-3 control-label"
+    .col-sm-9
+      %table.table.table-striped.variants_table
+        %tr
+          %td
+            name
+          %td
+            sku
+          %td
+            price
+          %td
+            count
+          %td
+            enabled
+          %td
 
-      .row
-        %label.select.optional.col-sm-3.control-label
-          Категории
-        .col-sm-9
-          = render partial: 'ajax_selector', locals: {field_name: 'category', items: @product.categories, ajax_url: '/admin/categories/autocomplete'}
+        -f.object.variants.build unless f.object.variants.first
+        = f.fields_for :variants do |variant|
+          = render 'variant_fields', :f => variant
+      = link_to_add_association 'Добавить', f, :variants, class: "btn btn-success btn-xs", "data-association-insertion-node" => ".variants_table", "data-association-insertion-method" => "append"
+  %hr
 
-      .row
-        %label.select.optional.col-sm-3.control-label
-          Связанные категории
-        .col-sm-9
-          = render partial: 'ajax_selector', locals: {field_name: 'linked_category', items: @product.linked_categories, ajax_url: '/admin/categories/autocomplete'}
+  .form-group
+    =f.label :images, class: "col-sm-3 control-label"
+    .col-sm-9
+      #images
+        = f.fields_for :images do |image|
+          =image_tag(image.object.image.url(:thumb))
+          %br
+          =link_to_remove_association "Удалить", image, class: "btn btn-danger btn-xs"
+          %br
+        = link_to_add_association 'Добавить', f, :images, class: "btn btn-success btn-xs"
+  %hr
 
-      .row
-        %label.select.optional.col-sm-3.control-label
-          Связанные товары
-        .col-sm-9
-          = render partial: 'ajax_selector', locals: {field_name: 'linked_product', items: @product.linked_products, ajax_url: '/admin/products/autocomplete'}
+  .row
+    %label.select.optional.col-sm-3.control-label
+      Категории
+    .col-sm-9
+      = render partial: 'ajax_selector', locals: {field_name: 'category', model_name: 'product', items: @product.categories, ajax_url: '/admin/categories/autocomplete'}
+  %hr
 
-    .tab-pane(id="images")
-      = f.simple_fields_for :images do |image|
-        = render 'image_fields', :f => image
-      = link_to_add_association 'add image', f, :images
+  .row
+    %label.select.optional.col-sm-3.control-label
+      Рекомендуемые товары
+    .col-sm-9
+      = render partial: 'ajax_selector', locals: {field_name: 'linked_product', model_name: 'product', items: @product.linked_products, ajax_url: '/admin/products/autocomplete'}
+  %hr
 
-    .tab-pane(id="seo")
-      = render partial: 'seo', locals: {f: f}
+  .row
+    %label.select.optional.col-sm-3.control-label
+      Категории с рекомендуемыми товарами
+    .col-sm-9
+      = render partial: 'ajax_selector', locals: {field_name: 'linked_category', model_name: 'product', items: @product.linked_categories, ajax_url: '/admin/categories/autocomplete'}
+  %hr
+
+
+  = render partial: 'seo', locals: {f: f}
 
   = f.button :submit
   = link_to 'Cancel', admin_products_path, class: 'btn btn-default'

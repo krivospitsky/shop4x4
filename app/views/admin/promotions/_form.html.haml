@@ -24,8 +24,17 @@
 
       = f.input :discount
 
-      = f.association :categories, as: :check_boxes
-      = f.association :products, as: :check_boxes
+      .row
+        %label.select.optional.col-sm-3.control-label
+          Категории
+        .col-sm-9
+          = render partial: 'ajax_selector', locals: {field_name: 'category', model_name: 'promotion', items: @promotion.categories, ajax_url: '/admin/categories/autocomplete'}
+
+      .row
+        %label.select.optional.col-sm-3.control-label
+          Товары
+        .col-sm-9
+          = render partial: 'ajax_selector', locals: {field_name: 'product', model_name: 'promotion', items: @promotion.products, ajax_url: '/admin/products/autocomplete'}
 
     .tab-pane(id="seo")
       = render partial: 'seo', locals: {f: f}

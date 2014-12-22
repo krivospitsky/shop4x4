@@ -12,14 +12,14 @@ class Cart < ActiveRecord::Base
     cart
   end
 
-  def get_item(product_id, variable_id = nil)
+  def get_item(product_id, variant_id)
     items.find_or_initialize_by(product_id: product_id,
-                                variable_id: variable_id)
+                                variant_id: variant_id)
   end
 
-  def add(product_id, variable_id = nil)
-    item = get_item(product_id, variable_id)
-    item.change(1)
+  def add(product_id, variant_id, count)
+    item = get_item(product_id, variant_id)
+    item.incrase(count)
     item
   end
 

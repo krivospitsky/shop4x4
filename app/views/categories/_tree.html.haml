@@ -1,2 +1,7 @@
-- Category.where({parent_id: nil}).each do |cat|
-  = render 'categories/tree_item', :tree_item => cat
+.panel.panel-default
+  .panel-heading
+    Категории
+  .panel-body
+    %ul
+      - Category.where({parent_id: nil}).each do |cat|
+        = render 'categories/tree_item', :tree_item => cat

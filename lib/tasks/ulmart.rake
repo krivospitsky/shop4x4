@@ -18,18 +18,21 @@ namespace :ulmart do
 					price=prod.xpath('//div[@class="b-product-card__price"]/span/span[1]').first.content;
 					price.gsub!(/[[:space:]]/, '')
 
-					product=Product.find_or_create_by(sku: sku)
+					product=Product.find_or_create_by(name: name)
 					product.name=name
-					product.sku=sku
 					product.description=descr
-					if price.to_i>1000
-						product.price=price.to_i+200
-					else
-						product.price=price.to_i
-					end
-					product.enabled=true
 					product.categories << Category.find(urls[url])
-					product.count=0 if !product.count or product.count==0
+
+					variant=product.variants.first || product.variants.build
+
+					variant.sku=sku
+					if price.to_i>1000
+						variant.price=price.to_i+200
+					else
+						variant.price=price.to_i
+					end
+					variant.enabled=true
+					variant.count=0 if !variant.count or variant.count==0
 
 					# Manufacturer.all.each do |man|
 					# 	if name.include?(man.name)

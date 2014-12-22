@@ -29,38 +29,32 @@
             });
           });
       .col-sm-5.col-md-5.dl-horizontal
-        - if @product.sku
-          .sku
-            %dt Модель
-            %dd= @product.sku
-        .availability
-          %dt Наличие
-          %dd= @product.availability
+        / .availability
+        /   %dt Наличие
+        /   %dd= @product.availability
         = form_for @cart_item do |f|
-          -#@product.options.all.each do |option|
-            %dt= option.name
-            %dd
-              -option.option_items.all(order:'delta').each do |item|
-                .control-group
-                  .controls
-                    %label.control-label
-                      %input(type="radio" value="#{item.value}" name="#{option.name}" id="#{option.name}_#{item.value}" )
-                      #{item.label}
-
           .price{itemprop:"offers", itemscope:'', itemtype:"http://schema.org/Offer"}
             = f.hidden_field :product_id
             = f.hidden_field :quantity
-            %dt Цена
-            %dd
-              -if @product.discount_price
-                %del= @product.price
-                =@product.discount_price
-                руб.
-              -else
-                = "#{@product.price} руб."
-              %button.btn.btn-sm.btn-primary{type:'submit'}
-                %span.glyphicon.glyphicon-shopping-cart
-                Купить
+            -if @product.variants.count<=1
+              %dt Цена
+              %dd
+                -if @product.discount_price
+                  %del= @product.price
+                  =@product.discount_price
+                  руб.
+                -else
+                  = "#{@product.price} руб."
+            -else
+              -@product.variants.enabled.each do |variant|
+                .radio
+                  %label
+                    %input(type="radio" value="#{variant.id}" name="variant_id")
+                    =raw "#{variant.name} (#{variant.price_str})"
+
+            %button.btn.btn-sm.btn-primary{type:'submit'}
+              %span.glyphicon.glyphicon-shopping-cart
+              Купить
     -if @product.images.count >5
       .row
         .col-sm-2.col-sm-offset4.col-md-2.col-md-offset4.next.icon-angle-down

@@ -9,14 +9,28 @@
     .tab-pane.active#common
       = f.input :name
       = f.input :description, as: :ckeditor, input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]} ]}}
-      = f.input :price
-      = f.input :sku
-      = f.input :count
-      = f.input :enabled
-      /= f.association :categories
 
-      /= f.association :linked_categories
-      / = f.association :linked_products
+      .form-group
+        =f.label :variants, class: "col-sm-3 control-label"
+        .col-sm-9
+          %table.table.table-striped.variants_table
+            %tr
+              %td
+                name
+              %td
+                sku
+              %td
+                price
+              %td
+                count
+              %td
+                enabled
+              %td
+
+            -f.object.variants.build unless f.object.variants.first
+            = f.fields_for :variants do |variant|
+              = render 'variant_fields', :f => variant
+          = link_to_add_association 'Добавить', f, :variants, class: "btn btn-success btn-xs", "data-association-insertion-node" => ".variants_table", "data-association-insertion-method" => "append"
 
       = f.association :categories
       = f.association :linked_categories

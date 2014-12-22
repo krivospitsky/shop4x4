@@ -51,7 +51,6 @@
               .badge= @current_cart.cart_items.count.to_s
 
           %ul.nav.navbar-nav
-            =render '/categories/tree'
             %li
               =form_tag catalog_search_path, method: 'get', class: 'navbar-form navbar-right', id: 'search_form', role: 'search' do
                 .input-group
@@ -76,8 +75,11 @@
             /     -Manufacturer.all(order:'name').each do |manufacturer|
             /       %li
             /         =link_to manufacturer.name, manufacturer_path(manufacturer.id)
-
-      = yield
+      .row
+        .col-sm-3
+          =render '/categories/tree'
+        .col-sm-9
+          = yield
 
       %footer
         .nav.navbar.navbar-default

@@ -3,7 +3,7 @@ class CartItem < ActiveRecord::Base
 	belongs_to :product
   # belongs_to :variant
 
-  def change(count = 1)
+  def incrase(count = 1)
     self.quantity = 0 if new_record?
     self.quantity += count
     save

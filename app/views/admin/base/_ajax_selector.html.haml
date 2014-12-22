@@ -1,0 +1,27 @@
+%div{class: "#{field_name}s"}
+  - items.each do |item|
+    .item.row
+      .col-sm-10
+        = item.name
+      .col-sm-2
+        %a{id: item.id, href: "#", class: "remove_#{field_name} btn btn-danger btn-xs"}
+          Удалить
+      %input{type: "hidden", name: "#{model_name}[#{field_name}_ids][]", value: item.id}
+  .item.search_input
+    .btn-group
+      %button.btn.btn-success.btn-xs.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
+        Добавить
+      %ul.dropdown-menu{role: "menu", "data-ajax-url"=> ajax_url}
+        %li
+          %a
+            .input-group
+              %span.input-group-addon
+                %span.glyphicon.glyphicon-search
+              %input.form-control{type: "text"}
+        %li.divider
+
+:javascript
+  $(function() {
+    init_autocomplit("#{field_name}", "#{model_name}");
+  });
+

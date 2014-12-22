@@ -1,12 +1,15 @@
 #coding:utf-8
 class Product < ActiveRecord::Base
-	has_many :images, :dependent => :destroy
+  has_many :images, :dependent => :destroy
+  accepts_nested_attributes_for :images, allow_destroy:true
+
+  has_many :variants, :dependent => :destroy
+  accepts_nested_attributes_for :variants, allow_destroy:true
+
   include  Seoable
 
-  scope :enabled, -> { where(enabled: 't') }
-
-
-  accepts_nested_attributes_for :images, allow_destroy:true
+  # scope :enabled, -> { where(enabled: 't') }
+  scope :enabled, -> { joins(:variants).where("variants.enabled" => 't') }
 
   has_and_belongs_to_many(:categories,
     :join_table => "categories_products")
@@ -24,9 +27,19 @@ class Product < ActiveRecord::Base
     where('lower(name) LIKE :search', search: search.downcase)
   end
 
+  def price
+    prices=variants.map {|v| v.price}
+    if prices.min == prices.max
+      return prices[0]
+    else
+      return "от #{prices.min} до #{prices.max}"
+    end
+  end
+
   def availability
-	  return 'В наличии' if count>0
-	  return 'Под заказ' if count==0
+	  # return 'В наличии' if count>0
+	  # return 'Под заказ' if count==0
+    return 'В наличии'
 	end
 
   def linked
@@ -53,7 +66,16 @@ class Product < ActiveRecord::Base
     max_discount1 = Promotion.current.joins(:products).where('products.id = ?', id).maximum(:discount) || 0
     max_discount2 = Promotion.current.joins(:categories).where('categories.id in (?)', categories.pluck(:id)).maximum(:discount) || 0
     max_discount = [max_discount1, max_discount2].max
-    return price * (100 - max_discount) / 100 if max_discount
+
+    prices=variants.map {|v| v.price}
+    if max_discount
+      if prices.min == prices.max
+        return prices[0] * (100 - max_discount) / 100
+      else
+        return "от #{prices.min * (100 - max_discount) / 100} до #{prices.max * (100 - max_discount) / 100}"
+      end
+    end
+
     false
   end
 end

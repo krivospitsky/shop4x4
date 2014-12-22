@@ -16,5 +16,9 @@
 //= require bootstrap
 //= require ckeditor/init
 //= require cocoon
+//= require select2
 //= require_tree .
 
+$(document).ready(function() {  
+  $('select[multiple]').select2();
+});

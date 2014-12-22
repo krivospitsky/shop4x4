@@ -1,3 +1,18 @@
 // Place all the styles related to the Admin::products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.file_upload{
+	display:none !important;
+}
+
+img.preview{
+	max-height: 50px;
+	max-width: 50px;
+}
+.preview_wrap{
+	height: 60px;
+	width: 60px;	
+}
+.glyphicon {
+    font-size: 45px;
+}

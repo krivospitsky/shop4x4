@@ -2,13 +2,11 @@
   %li.active
     %a(href="#common" data-toggle="tab") Common
   %li
-    %a(href="#images" data-toggle="tab") Images
-  %li
     %a(href="#seo" data-toggle="tab") SEO
 
 = simple_form_for [:admin, @product], html: {class: 'form-horizontal' }, wrapper: :bootstrap do |f|
   .tab-content
-    .tab-pane.active(id="common")
+    .tab-pane.active#common
       = f.input :name
       = f.input :description, as: :ckeditor, input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]} ]}}
       = f.input :price
@@ -20,30 +18,18 @@
       /= f.association :linked_categories
       / = f.association :linked_products
 
-      .row
-        %label.select.optional.col-sm-3.control-label
-          Категории
-        .col-sm-9
-          = render partial: 'ajax_selector', locals: {field_name: 'category', items: @product.categories, ajax_url: '/admin/categories/autocomplete'}
+      = f.association :categories
+      = f.association :linked_categories
+      = f.association :linked_products
 
-      .row
-        %label.select.optional.col-sm-3.control-label
-          Связанные категории
-        .col-sm-9
-          = render partial: 'ajax_selector', locals: {field_name: 'linked_category', items: @product.linked_categories, ajax_url: '/admin/categories/autocomplete'}
-
-      .row
-        %label.select.optional.col-sm-3.control-label
-          Связанные товары
-        .col-sm-9
-          = render partial: 'ajax_selector', locals: {field_name: 'linked_product', items: @product.linked_products, ajax_url: '/admin/products/autocomplete'}
-
-    .tab-pane(id="images")
+    #images.clearfix
+      = f.label :images
       = f.simple_fields_for :images do |image|
         = render 'image_fields', :f => image
-      = link_to_add_association 'add image', f, :images
+      = link_to_add_association raw('<div class="img-thumbnail"><span class="glyphicon glyphicon-plus"/></div>'), f, :images, {:'data-association-insertion-node'=> 'this'} 
 
-    .tab-pane(id="seo")
+
+    .tab-pane#seo
       = render partial: 'seo', locals: {f: f}
 
   = f.button :submit

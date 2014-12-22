@@ -52,9 +52,9 @@ gem "cocoon"
 #gem "activeadmin-paperclip", github: 'struck/activeadmin-paperclip'
 
 gem 'inherited_resources'
-gem 'simple_form', github: 'plataformatec/simple_form'
+gem 'simple_form' #, github: 'plataformatec/simple_form'
 gem 'carrierwave'
-gem 'simple_form_fancy_uploads', github: 'krivospitsky/simple_form_fancy_uploads'
+#gem 'simple_form_fancy_uploads', github: 'krivospitsky/simple_form_fancy_uploads'
 gem 'mini_magick'
 gem 'devise'
 gem 'cancan'
@@ -70,8 +70,12 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'ffaker'
+  gem 'quiet_assets'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 gem 'rails3-jquery-autocomplete'
+
+gem 'select2-rails'
+

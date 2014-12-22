@@ -24,8 +24,8 @@
 
       = f.input :discount
 
-      = f.association :categories, as: :check_boxes
-      = f.association :products, as: :check_boxes
+      = f.association :categories
+      = f.association :products
 
     .tab-pane(id="seo")
       = render partial: 'seo', locals: {f: f}

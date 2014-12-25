@@ -8,8 +8,8 @@ class Product < ActiveRecord::Base
 
   include  Seoable
 
-  # scope :enabled, -> { where(enabled: 't') }
-  scope :enabled, -> { joins(:variants).where("variants.enabled" => 't') }
+   scope :enabled, -> { where(enabled: 't') }
+  #scope :enabled, -> { joins(:variants).where("variants.enabled" => 't') }
 
   has_and_belongs_to_many(:categories,
     :join_table => "categories_products")
@@ -27,14 +27,14 @@ class Product < ActiveRecord::Base
     where('lower(name) LIKE :search', search: search.downcase)
   end
 
-  def price
-    prices=variants.map {|v| v.price}
-    if prices.min == prices.max
-      return prices[0]
-    else
-      return "от #{prices.min} до #{prices.max}"
-    end
-  end
+  # def price
+  #   prices=variants.map {|v| v.price}
+  #   if prices.min == prices.max
+  #     return prices[0]
+  #   else
+  #     return "от #{prices.min} до #{prices.max}"
+  #   end
+  # end
 
   def availability
 	  # return 'В наличии' if count>0
@@ -67,13 +67,14 @@ class Product < ActiveRecord::Base
     max_discount2 = Promotion.current.joins(:categories).where('categories.id in (?)', categories.pluck(:id)).maximum(:discount) || 0
     max_discount = [max_discount1, max_discount2].max
 
-    prices=variants.map {|v| v.price}
-    if max_discount
-      if prices.min == prices.max
-        return prices[0] * (100 - max_discount) / 100
-      else
-        return "от #{prices.min * (100 - max_discount) / 100} до #{prices.max * (100 - max_discount) / 100}"
-      end
+    #prices=variants.map {|v| v.price}   
+    if max_discount>0
+      return price * (100 - max_discount) / 100
+      # if prices.min == prices.max
+      #   return prices[0] * (100 - max_discount) / 100
+      # else
+      #   return "от #{prices.min * (100 - max_discount) / 100} до #{prices.max * (100 - max_discount) / 100}"
+      # end
     end
 
     false

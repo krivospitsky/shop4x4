@@ -10,8 +10,19 @@ $(window).load(function(){
       };
   });
 
-   $('#images')
-      .on('cocoon:after-insert', function(e, added_image) {
-        $(added_image).find('input').focus().click();;
-      }); 
+  $('#images')
+    .on('cocoon:after-insert', function(e, added_image) {
+      $(added_image).find('input').focus().click();;
+    }); 
+
+
+  $( "#sortable" ).sortable({
+    update : function () { 
+        $('input.position').each(function() {           
+            var parentID = $(this).parent().parent().attr('ID');
+            $(this).val( parentID );
+        });
+    }
+  });
+  $( "#sortable" ).disableSelection();
 });

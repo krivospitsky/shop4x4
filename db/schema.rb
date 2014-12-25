@@ -132,7 +132,12 @@ ActiveRecord::Schema.define(version: 20140722113626) do
 
   create_table "products", force: true do |t|
     t.string   "name"
+    t.string   "options"
     t.text     "description"
+    t.integer  "price"
+    t.string   "sku"
+    t.integer  "count"
+    t.boolean  "enabled"
     t.integer  "sort_order"
     t.datetime "created_at"
     t.datetime "updated_at"

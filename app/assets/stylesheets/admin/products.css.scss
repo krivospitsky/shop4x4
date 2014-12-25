@@ -16,3 +16,16 @@ img.preview{
 .glyphicon {
     font-size: 45px;
 }
+
+#sortable { 
+	list-style-type: none; 
+	margin: 0; 
+	padding: 0; 
+	width: 538px; 
+}
+#sortable li {
+	float: left; 
+	width: 64px; 
+	height: 88px; 
+	text-align: center; 
+}

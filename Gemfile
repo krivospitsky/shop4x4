@@ -17,6 +17,8 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+#gem 'rails3-jquery-autocomplete'
+gem 'select2-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 #gem 'turbolinks'
@@ -75,7 +77,4 @@ end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
-gem 'rails3-jquery-autocomplete'
-
-gem 'select2-rails'
 

@@ -14,8 +14,8 @@ Page.create!([
   {name: "Контакты", text: "<p>КОНТАКТНАЯ ИНФОРМАЦИЯ</p>\r\n\r\n<p>ИП Давыдов В.Н.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>89308444448&nbsp;</p>\r\n\r\n<p>tools_kaluga@mail.ru</p>\r\n", image: nil, enabled: true, sort_order: nil, position: "menu_and_footer"}
 ])
 Product.create!([
-  {name: "Диск отрезной по металлу Т41-115 х 1,2 х 22,2 (10/50/400)", options: nil, description: "<p><strong>Диаметр диска, мм:</strong> 115</p>\r\n\r\n<p><strong>Толщина несущего полотна, мм:</strong> 1.2</p>\r\n\r\n<p><strong>Диаметр посадочного отверстия, мм:</strong> 22,2</p>\r\n", price: 31, sku: "11512", count: nil, enabled: true, sort_order: nil},
-  {name: "Диск отрезной по металлу Т41-125 х 1,0 х 22,2 (10/50/400)", options: nil, description: "<p><strong>Диаметр диска, мм:</strong> 115</p>\r\n\r\n<p><strong>Толщина несущего полотна, мм:</strong> 1.0</p>\r\n\r\n<p><strong>Диаметр посадочного отверстия, мм:</strong> 22,2</p>\r\n", price: 33, sku: "12510", count: nil, enabled: true, sort_order: nil}
+  {name: "Диск отрезной по металлу Т41-115 х 1,2 х 22,2 (10/50/400)", description: "<p><strong>Диаметр диска, мм:</strong> 115</p>\r\n\r\n<p><strong>Толщина несущего полотна, мм:</strong> 1.2</p>\r\n\r\n<p><strong>Диаметр посадочного отверстия, мм:</strong> 22,2</p>\r\n", price: 31, sku: "11512", count: nil, enabled: true, sort_order: nil},
+  {name: "Диск отрезной по металлу Т41-125 х 1,0 х 22,2 (10/50/400)", description: "<p><strong>Диаметр диска, мм:</strong> 115</p>\r\n\r\n<p><strong>Толщина несущего полотна, мм:</strong> 1.0</p>\r\n\r\n<p><strong>Диаметр посадочного отверстия, мм:</strong> 22,2</p>\r\n", price: 33, sku: "12510", count: nil, enabled: true, sort_order: nil}
 ])
 Promotion.create!([
   {name: "test promotion", description: "", sort_order: nil, enabled: true, has_banner: false, banner: nil, send_mail: false, start_at: "2014-08-07", end_at: "2014-02-07", discount: nil}

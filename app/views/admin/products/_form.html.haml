@@ -29,8 +29,9 @@
       = f.input :description, as: :ckeditor, input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]} ]}}
 
 
-      = f.association :categories
-      = f.association :linked_categories
+      -if !Settings.disable_categories
+        = f.association :categories
+        = f.association :linked_categories
       = f.association :linked_products
 
       #images.clearfix.form-group

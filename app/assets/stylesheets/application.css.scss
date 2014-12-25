@@ -9,6 +9,8 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  */
+$brand-primary: #262668;
+
 @import "bootstrap";
 @import "pages";
 @import "carts";
@@ -17,10 +19,19 @@
 @import "products";
 @import "fancybox";
 
+@font-face {
+  font-family: 'Kelly Slab';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Kelly Slab'), local('KellySlab-Regular'), url(http://fonts.gstatic.com/s/kellyslab/v6/gKqKZ8BbpAcxgFwZImcomxsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
+}
+
+
  /* Custom container */
 .container-fixed {
   margin: 0 auto;
   max-width: 980px;
+  padding: 10px;
 }
 
 .navbar{
@@ -29,4 +40,42 @@
 
 #search_form{
   width:200px;
+}
+
+.navbar-center>a {
+        float: none;	
+}
+
+.font_0 {
+    font: 61px/1.1em "kelly slab",fantasy;
+}
+
+.font_4 {
+    font: 35px/1.3em "kelly slab",fantasy;
+}
+
+.header,.footer{
+    background-color: $brand-primary;
+    margin-bottom: 10px;
+    color: white;
+	padding: 10px;
+	text-align: center;
+}
+
+
+.main-img a img {
+    width: 100%;
+    max-width: 300px;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.buy_button{
+    max-width:200px;	
+}
+
+.logo{
+	width:100%;
 }

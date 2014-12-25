@@ -28,65 +28,86 @@
     / Size should be 32 x 32 pixels
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
   %body
+    %header.header
+      .container-fixed
+        .row
+          .col-sm-6
+            =image_tag 'logo.png', class: 'logo'
+          .col-sm-6
+            .font_0
+              НАСТОЯЩИЙ АБРАЗИВ
+            .font_4
+              Диск — всему голова
     .container-fixed
-      %nav.navbar.navbar-default{role:'navigation'}
-        .navbar-header
-          %button.navbar-toggle{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse"}
-            %span.sr-only Toggle navigation
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          %a.navbar-brand{:href => "/"}
-            =Settings.site_title
-        %ul.nav.navbar-nav
-          .navbar-text
-            =Settings.owner_phone
-        .collapse.navbar-collapse.navbar-ex1-collapse
-          %ul.nav.navbar-nav.navbar-right
-            -Page.in_menu.each do |page|
-              =link_to page.title, page_path(page), class: 'btn btn-success navbar-btn'
-            %a.btn.btn-success.navbar-btn{href: cart_path}
-              .glyphicon.glyphicon-shopping-cart
-              Корзина
-              .badge= @current_cart.cart_items.count.to_s
+      %nav.navbar.text-center
+        -Page.in_menu.each do |page|
+          =link_to page.title, page_path(page), class: 'btn btn-primary navbar-btn'
+        %a.btn.btn-primary.navbar-btn{href: catalog_path}
+          Каталог
+        %a.btn.btn-primary.navbar-btn{href: cart_path}
+          .glyphicon.glyphicon-shopping-cart
+          Корзина
+          .badge= @current_cart.cart_items.count.to_s
 
-          %ul.nav.navbar-nav
-            %li
-              =form_tag catalog_search_path, method: 'get', class: 'navbar-form navbar-right', id: 'search_form', role: 'search' do
-                .input-group
-                  %input.form-control{type:"text", placeholder:"Поиск", name: "text"}
-                  %span.input-group-btn.input-group-sm
-                    %button.btn.btn-default.btn.xs{type: 'submit'}
-                      %span.glyphicon.glyphicon-search
-            / -%li.dropdown
-            /   %a.dropdown-toggle{href:"#", 'data-toggle'=>"dropdown"}
-            /     Статьи
-            /     <b class="caret"></b>
-            /   %ul.dropdown-menu
-            /     %li= link_to "Слинг или рюкзак", "/path3"
-            /     %li= link_to "Эрго-рюкзак против кенгуру", "/path3"
-            /     %li= link_to "Выбрать слинг", "/path3"
+          / %ul.nav.navbar-nav
+          /   %li
+          /     =form_tag catalog_search_path, method: 'get', class: 'navbar-form navbar-right', id: 'search_form', role: 'search' do
+          /       .input-group
+          /         %input.form-control{type:"text", placeholder:"Поиск", name: "text"}
+          /         %span.input-group-btn.input-group-sm
+          /           %button.btn.btn-default.btn.xs{type: 'submit'}
+          /             %span.glyphicon.glyphicon-search
 
-            / %li.dropdown
-            /   %a.dropdown-toggle{href:"#", 'data-toggle'=>"dropdown"}
-            /     Производители
-            /     <b class="caret"></b>
-            /   %ul.dropdown-menu
-            /     -Manufacturer.all(order:'name').each do |manufacturer|
-            /       %li
-            /         =link_to manufacturer.name, manufacturer_path(manufacturer.id)
+          / -%li.dropdown
+          /   %a.dropdown-toggle{href:"#", 'data-toggle'=>"dropdown"}
+          /     Статьи
+          /     <b class="caret"></b>
+          /   %ul.dropdown-menu
+          /     %li= link_to "Слинг или рюкзак", "/path3"
+          /     %li= link_to "Эрго-рюкзак против кенгуру", "/path3"
+          /     %li= link_to "Выбрать слинг", "/path3"
+
+          / %li.dropdown
+          /   %a.dropdown-toggle{href:"#", 'data-toggle'=>"dropdown"}
+          /     Производители
+          /     <b class="caret"></b>
+          /   %ul.dropdown-menu
+          /     -Manufacturer.all(order:'name').each do |manufacturer|
+          /       %li
+          /         =link_to manufacturer.name, manufacturer_path(manufacturer.id)
+
+
+        /   %a.navbar-brand{:href => "/"}
+        /     =Settings.site_title
+        / %ul.nav.navbar-nav
+        /   .navbar-text
+        /     =Settings.owner_phone
+
       .row
-        .col-sm-3
-          =render '/categories/tree'
-        .col-sm-9
-          = yield
+        -if Settings.disable_categories
+          .col-sm-12
+            = yield
+        -else
+          .col-sm-3
+            =render '/categories/tree'
+          .col-sm-9
+            = yield
 
-      %footer
-        .nav.navbar.navbar-default
+    %footer.footer
+      .container-fixed    
+        %nav.navbar.text-center
           -Page.in_footer.each do |page|
-            =link_to page.title, page_path(page), class: 'btn btn-success navbar-btn'
+            =link_to page.title, page_path(page), class: 'btn btn-default navbar-btn'
+          %a.btn.btn-default.navbar-btn{href: catalog_path}
+            Каталог
+          %a.btn.btn-default.navbar-btn{href: cart_path}
+            .glyphicon.glyphicon-shopping-cart
+            Корзина
+            .badge= @current_cart.cart_items.count.to_s   
+          %hr
+          &copy; 2014 ИП Давыдов В.Н.
+          %br
+          Абразивные диски в Калуге и Туле
 
-          .navbar-text.pull-right
-            &copy; 2013
     <!-- Yandex.Metrika counter -->
     <!-- RedHelper -->

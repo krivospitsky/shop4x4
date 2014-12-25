@@ -44,8 +44,9 @@
               =link_to 'Settings', '/admin/settings/edit'
             %li
               =link_to 'Products', admin_products_path
-            %li
-              =link_to 'Categories', admin_categories_path
+            -if !Settings.disable_categories
+              %li
+                =link_to 'Categories', admin_categories_path
             %li
               =link_to 'Pages', admin_pages_path
             %li

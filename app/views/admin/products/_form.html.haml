@@ -36,10 +36,10 @@
 
       #images.clearfix.form-group
         = f.label :images, class: 'col-sm-3 control-label'
-        %ul#sortable.col-sm-9
+        %ul#image_list.sortable.col-sm-9
           = f.simple_fields_for :images do |image|
             = render 'image_fields', :f => image
-          = link_to_add_association raw('<div class="img-thumbnail"><span class="glyphicon glyphicon-plus"/></div>'), f, :images, {:'data-association-insertion-node'=> 'this'} 
+          = link_to_add_association raw('<div class="img-thumbnail"><span class="glyphicon glyphicon-plus add_photo"/></div>'), f, :images, {:'data-association-insertion-node'=> 'this'} 
 
 
     .tab-pane#seo

@@ -4,9 +4,9 @@
       %th= Page.human_attribute_name(:name)
       %th= Page.human_attribute_name(:enabled)
       %th=t '.actions', :default => t("helpers.actions")
-  %tbody
+  %tbody#pages_list.sortable
     - @pages.each do |page|
-      %tr
+      %tr{id: page.id}
         %td= page.name
         %td
           -if page.enabled

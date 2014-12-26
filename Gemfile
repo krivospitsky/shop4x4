@@ -9,7 +9,7 @@ gem 'pg'
 gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+#gem 'coffee-rails', '~> 4.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -19,6 +19,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 #gem 'rails3-jquery-autocomplete'
 gem 'select2-rails'
+gem 'fancybox2-rails', '~> 0.2.4'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 #gem 'turbolinks'
@@ -38,25 +39,20 @@ gem 'bootstrap-sass', '~> 3.1.1'
 
 gem 'haml-rails', :github => 'indirect/haml-rails'
 
-gem 'fancybox2-rails', '~> 0.2.4'
 
 gem 'nokogiri'
 gem "ckeditor"
 
-#gem 'formtastic'
-#gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'airbrake'
 #gem 'friendly_id', '~> 5.0.0'
 gem 'state_machine'
-#gem 'active_admin-state_machine', :github => 'macfanatic/active_admin-state_machine'
 #gem 'thin'
-gem "cocoon"
-#gem "activeadmin-paperclip", github: 'struck/activeadmin-paperclip'
 
 gem 'inherited_resources'
 gem 'simple_form' #, github: 'plataformatec/simple_form'
-gem 'carrierwave'
 #gem 'simple_form_fancy_uploads', github: 'krivospitsky/simple_form_fancy_uploads'
+gem "cocoon"
+gem 'carrierwave'
 gem 'mini_magick'
 gem 'devise'
 gem 'cancan'
@@ -78,3 +74,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 
+gem 'ranked-model'

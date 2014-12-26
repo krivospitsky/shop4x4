@@ -16,7 +16,7 @@ $(window).load(function(){
     }); 
 
 
-  $( "#sortable" ).sortable({
+  $( "#image_list.sortable" ).sortable({
     update : function () { 
         $('input.position').each(function() {           
             var parentID = $(this).parent().parent().attr('ID');

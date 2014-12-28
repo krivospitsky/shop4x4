@@ -1,5 +1,6 @@
 class Admin::PromotionsController < Admin::BaseController
-  defaults :resource_class => Promotion
+  
+  	@@resource_class = Promotion
   private
 
   def permitted_params

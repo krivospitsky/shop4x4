@@ -1,8 +1,9 @@
 class Admin::PagesController < Admin::BaseController
-  defaults :resource_class => Page
-  private
+	@@resource_class = Page
 
-  def permitted_params
-    params.permit(:page=>[:name, :text, :position, :sort_order, :enabled, :image, :sort_order_position], seo_attributes: [:title, :description, :keywords])
-  end
+	private
+
+	def permitted_params
+		params.require(:page).permit(:name, :text, :position, :sort_order, :enabled, :image, :sort_order_position, seo_attributes: [:title, :description, :keywords])
+	end
 end

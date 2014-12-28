@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  responders :flash, :http_cache
+
   def search
     @text=params[:text]
     @products=Product.search(params[:text])

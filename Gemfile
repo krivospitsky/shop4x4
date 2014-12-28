@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~>4.1.0'
+gem 'rails', '~>4.2.0'
 
 gem 'pg'
 
@@ -37,7 +37,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'sass-rails', '>= 3.2'
 gem 'bootstrap-sass', '~> 3.1.1'
 
-gem 'haml-rails', :github => 'indirect/haml-rails'
+gem 'haml-rails' #, :github => 'indirect/haml-rails'
 
 
 gem 'nokogiri'
@@ -48,7 +48,9 @@ gem 'airbrake'
 gem 'state_machine'
 #gem 'thin'
 
-gem 'inherited_resources'
+#gem 'inherited_resources'
+#gem 'responders'
+gem 'responders'
 gem 'simple_form' #, github: 'plataformatec/simple_form'
 #gem 'simple_form_fancy_uploads', github: 'krivospitsky/simple_form_fancy_uploads'
 gem "cocoon"

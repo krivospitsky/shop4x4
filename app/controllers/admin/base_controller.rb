@@ -12,13 +12,10 @@ class Admin::BaseController < ActionController::Base
 
 	@@resource_class = nil
 
-	def self.set_resource_class(_resource_class)
-		@resource_class=_resource_class
-	end
-
 	def index
 		@objects=@@resource_class.all
 		obj_name=ActiveModel::Naming.plural(@@resource_class)
+		raise obj_name
 		instance_variable_set("@#{obj_name}", @objects)
 		respond_with @objects
 	end

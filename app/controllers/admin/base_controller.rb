@@ -15,7 +15,7 @@ class Admin::BaseController < ActionController::Base
 	def index
 		@objects=@@resource_class.all
 		obj_name=ActiveModel::Naming.plural(@@resource_class)
-		raise obj_name
+		raise "obj_name=#{obj_name}"
 		instance_variable_set("@#{obj_name}", @objects)
 		respond_with @objects
 	end

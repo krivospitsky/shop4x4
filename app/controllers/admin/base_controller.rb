@@ -25,7 +25,7 @@ class Admin::BaseController < ActionController::Base
 
 	def create
 		object = controller_name.singularize.classify.constantize.create permitted_params
-    	redirect_to admin_pages_path
+    	redirect_to [:admin, controller_name]
 	end
 
 	def edit  
@@ -37,13 +37,13 @@ class Admin::BaseController < ActionController::Base
 	def update  
 		object = controller_name.singularize.classify.constantize.find(params[:id])  
 		object.update_attributes permitted_params
-    	redirect_to admin_pages_path
+    	redirect_to [:admin, controller_name]
 	end  
 
 	def destroy  
 		object = controller_name.singularize.classify.constantize.find(params[:id])  
 		object.destroy  
-    	redirect_to admin_pages_path
+    	redirect_to [:admin, controller_name]
 	end  
 
 	private

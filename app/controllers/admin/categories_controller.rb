@@ -1,7 +1,5 @@
 class Admin::CategoriesController < Admin::BaseController
 
-    @@resource_class = Category
-
   # def autocomplete
   #   @category = Category.enabled.where("name like ?", "%#{params[:name]}%").limit(10)
   #   respond_to do |format|

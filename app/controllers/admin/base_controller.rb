@@ -10,45 +10,39 @@ class Admin::BaseController < ActionController::Base
 	before_action :authenticate_admin!
 
 
-	@@resource_class = nil
-
 	def index
-		@objects=@@resource_class.all
-		obj_name=ActiveModel::Naming.plural(@@resource_class)
-		raise "obj_name=#{obj_name}"
-		instance_variable_set("@#{obj_name}", @objects)
-		respond_with @objects
+		objects = controller_name.classify.constantize.all
+    	instance_variable_set("@#{controller_name}", objects)
+		respond_with objects
 	end
 
 
 	def new
-		@object = Page.new
-		obj_name=ActiveModel::Naming.singular(@@resource_class)
-		instance_variable_set("@#{obj_name}", @object)
-		respond_with(@object)
+		object = controller_name.singularize.classify.constantize.new
+		instance_variable_set("@#{controller_name.singularize}", object)
+		respond_with(object)
     end
 
 	def create
-		@object = Page.create permitted_params
+		object = controller_name.singularize.classify.constantize.create permitted_params
     	redirect_to admin_pages_path
 	end
 
 	def edit  
-		@object = Page.find(params[:id])  
-		obj_name=ActiveModel::Naming.singular(@@resource_class)
-		instance_variable_set("@#{obj_name}", @object)
-		respond_with(@object)  
+		object = controller_name.singularize.classify.constantize.find(params[:id])  
+		instance_variable_set("@#{controller_name.singularize}", object)
+		respond_with(object)  
 	end  
 
 	def update  
-		@object = Page.find(params[:id])  
-		@object.update_attributes permitted_params
+		object = controller_name.singularize.classify.constantize.find(params[:id])  
+		object.update_attributes permitted_params
     	redirect_to admin_pages_path
 	end  
 
 	def destroy  
-		@object = Page.find(params[:id])  
-		@object.destroy  
+		object = controller_name.singularize.classify.constantize.find(params[:id])  
+		object.destroy  
     	redirect_to admin_pages_path
 	end  
 

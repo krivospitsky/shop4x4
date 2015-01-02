@@ -1,6 +1,4 @@
 class Admin::PagesController < Admin::BaseController
-	@@resource_class = Page
-
 	private
 
 	def permitted_params

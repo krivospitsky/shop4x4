@@ -12,7 +12,7 @@ Shop::Application.routes.draw do
   get 'catalog(/*category_path)/product/:id', to: 'products#show', as: :original_product
   get 'catalog(/*category_path)/:category_id/', to: 'products#index', as: :category
   get 'catalog', to: 'products#index'
-  resources :main
+#  resources :main
 
   resources :cart_items
  # get 'login' => 'auth#index'
@@ -24,7 +24,7 @@ Shop::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'main#index'
+  root 'pages#show', id: Page.first.id
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

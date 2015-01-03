@@ -7,4 +7,11 @@ module ApplicationHelper
 	  	original_product_path(category.path, product)
 	end
   end
+  def page_path(page)
+  	if page == Page.first
+		root_path
+  	else
+		original_page_path(page)
+	end
+  end
 end

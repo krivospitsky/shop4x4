@@ -4,7 +4,7 @@ Shop::Application.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'
 
-  resources :pages
+  resources :pages, as: :original_page
 #  resources :categories
 #  resources :products
 

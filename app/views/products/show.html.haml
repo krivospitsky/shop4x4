@@ -45,12 +45,7 @@
               
             -if @product.variants.count<=1
               %strong Цена
-              -if @product.discount_price
-                %del= @product.price
-                =@product.discount_price
-                руб.
-              -else
-                = "#{@product.price} руб."
+              =@product.price_str
             -else
               -@product.variants.enabled.each do |variant|
                 .radio

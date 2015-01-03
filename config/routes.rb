@@ -17,7 +17,7 @@ Shop::Application.routes.draw do
   resources :cart_items
  # get 'login' => 'auth#index'
   post '/cart/add' => 'cart#add'
-  get '/cart' => 'cart#index'
+  get '/cart' => 'cart#show'
   get '/cart/delete/:product_id' => 'cart#delete'
 
     # The priority is based upon order of creation: first created -> highest priority.

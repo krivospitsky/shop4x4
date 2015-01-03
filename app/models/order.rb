@@ -15,4 +15,9 @@ class Order < ActiveRecord::Base
       transition any - :Отменен => :Отменен
     end
   end
+
+  before_save :set_secure_key
+  def set_secure_key
+    self.secure_key ||= SecureRandom.hex(16)
+  end
 end

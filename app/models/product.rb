@@ -79,4 +79,15 @@ class Product < ActiveRecord::Base
 
     false
   end
+
+  def price_str(quantity=1)
+    if !price
+      "по запросу"
+    elsif discount_price
+      "<del>#{price*quantity}</del> #{discount_price*quantity} руб."
+    else
+      "#{price*quantity} руб."
+    end
+  end
+
 end

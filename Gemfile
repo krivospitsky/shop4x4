@@ -45,7 +45,7 @@ gem "ckeditor"
 
 gem 'airbrake'
 #gem 'friendly_id', '~> 5.0.0'
-gem 'state_machine'
+gem 'state_machine', github:'huoxito/state_machine', branch:'activerecord-4.2-upgrade'
 #gem 'thin'
 
 #gem 'inherited_resources'

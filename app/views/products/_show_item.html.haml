@@ -1,17 +1,12 @@
-.col-md-3.col-sm-4.col-xs-6
+.col-md-3.col-sm-4.col-xs-12
   .thumbnail.shadow
     .name.text-center
       =link_to product.name, product_path(product, category)
     .image.text-center
       =link_to image_tag(product.images.first.image.url(:product_list)), product_path(product, category) if product.images.first
     .price.text-center
-      Цена
-      -if product.discount_price
-        %del= product.price
-        =product.discount_price
-        руб.
-      -else
-        = "#{product.price} руб."
+      Цена 
+      =product.price_str
       -if Settings.hide_count_in_product
         = form_for cart_item do |f|
           = f.hidden_field :product_id

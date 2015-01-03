@@ -9,7 +9,7 @@
           =link_to item.product.name, product_path(item.product)
         %td
           %small
-            = number_to_currency(item.product.price, unit:"руб.", :delimiter => " ", :format => "%n %u", :precision => 0)
+            = item.product.price_str
         %td
           .input-group.input-group-sm#quantity
             =f.text_field :quantity, class:'form-control'
@@ -18,7 +18,7 @@
                 %span.glyphicon.glyphicon-refresh
         %td
           %small
-            = number_to_currency(item.product.price*item.quantity, unit:"руб.", :delimiter => " ", :format => "%n %u", :precision => 0)
+            = item.product.price_str(item.quantity)
       %td
         =button_to item, :method => :delete, class:'btn btn-danger btn-xs' do
           %span.glyphicon.glyphicon-trash

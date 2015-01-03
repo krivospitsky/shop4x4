@@ -1,7 +1,7 @@
 #coding:utf-8
 class UserMailer < ActionMailer::Base
 	helper :application
-  default :delivery_method => 'sendmail'
+
   def order_confirmation(order)
     @order=order
     mail(to:order.email, subject:"Подтверждение заказа", from:Settings.owner_email)

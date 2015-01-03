@@ -46,7 +46,7 @@
     %dl.dl-horizontal
       %dt Ссылка для отслеживания
       %dd
-        ="/orders/#{@order.secure_key}"
+        ="#{Settings.site_url}orders/#{@order.secure_key}"
 
     %table.table
       -@order.cart.cart_items.all.each do |item|

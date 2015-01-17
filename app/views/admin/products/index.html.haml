@@ -4,9 +4,9 @@
       %th= Product.human_attribute_name(:name)
       %th= Product.human_attribute_name(:price)
       %th.col-sm-3=t '.actions', :default => t("helpers.actions")
-  %tbody
+  %tbody#products_list.sortable
     - @products.each do |product|
-      %tr
+      %tr{id: product.id}
         %td= product.name
         %td= product.price
         %td

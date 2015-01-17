@@ -6,9 +6,16 @@ class Product < ActiveRecord::Base
   has_many :variants, :dependent => :destroy
   accepts_nested_attributes_for :variants, allow_destroy:true
 
+  include RankedModel
+    ranks :sort_order
+
   include  Seoable
 
-   scope :enabled, -> { where(enabled: 't') }
+
+  include  Seoable
+
+  default_scope -> {order(sort_order: :asc)}
+  scope :enabled, -> { where(enabled: 't') }
   #scope :enabled, -> { joins(:variants).where("variants.enabled" => 't') }
 
   has_and_belongs_to_many(:categories,

@@ -40,10 +40,10 @@
               Диск — всему голова
     .container-fixed
       %nav.navbar.text-center
-        -Page.in_menu.each do |page|
-          =link_to page.name, page_path(page), class: 'btn btn-primary navbar-btn'
         %a.btn.btn-primary.navbar-btn{href: catalog_path}
           Каталог
+        -Page.in_menu.each do |page|
+          =link_to page.name, page_path(page), class: 'btn btn-primary navbar-btn'
         %a.btn.btn-primary.navbar-btn{href: cart_path}
           .glyphicon.glyphicon-shopping-cart
           Корзина
@@ -96,10 +96,10 @@
     %footer.footer
       .container-fixed    
         %nav.navbar.text-center
-          -Page.in_footer.each do |page|
-            =link_to page.name, page_path(page), class: 'btn btn-default navbar-btn'
           %a.btn.btn-default.navbar-btn{href: catalog_path}
             Каталог
+          -Page.in_footer.each do |page|
+            =link_to page.name, page_path(page), class: 'btn btn-default navbar-btn'
           %a.btn.btn-default.navbar-btn{href: cart_path}
             .glyphicon.glyphicon-shopping-cart
             Корзина

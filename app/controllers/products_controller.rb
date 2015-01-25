@@ -30,6 +30,7 @@ class ProductsController < ApplicationController
   end
 
   def index
+    @products=[]
     if params[:category_id]
       @category = Category.find(params[:category_id])
       @products=@category.products_in_all_sub_cats
@@ -46,5 +47,15 @@ class ProductsController < ApplicationController
     else
       @products=Product.enabled
     end
+
+    @filters=Hash.new
+    @products.each do |prod|
+      prod.attr.keys.each do |attr|
+        @filters[attr]=[] unless @filters[attr]
+        @filters[attr] << prod.attr[attr] unless @filters[attr].include?(prod.attr[attr])
+      end
+    end
+
   end
+
 end

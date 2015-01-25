@@ -100,7 +100,7 @@ namespace :yml do
 
 			product.save!
 
-			if product.new_record?
+			# if product.new_record?
 				product.images.where("created_at < :start_time", {start_time: start_time}).delete_all
 				node.xpath('picture').each do |pic|
 					pic_url=pic.content
@@ -117,7 +117,7 @@ namespace :yml do
 						end
 					end
 				end
-			end
+			# end
 		end
 # #	my $price=$offer->findvalue('price');
 # 	my $price=($offer->findnodes('price'))[0]->toString;

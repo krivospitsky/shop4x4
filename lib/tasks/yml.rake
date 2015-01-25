@@ -10,7 +10,7 @@ namespace :yml do
 		loaded_images=[]
 
 		if Rails.env == 'production'
-			url='http://krivospitsky.ru/nova.xml' if supplier == 'nova'
+			url='http://krivospitsky.ru/nova.yml' if supplier == 'nova'
 			yml = Nokogiri::XML(open(url))
 		else
 			yml = Nokogiri::XML(open("tmp/yml/#{supplier}.yml"))
@@ -54,8 +54,8 @@ namespace :yml do
 				product.name=node.xpath('model').first.content
 			end
 			puts product.name
-			# product.categories.clear
-			# product.categories << Category.find_by(external_id: "#{supplier}_#{cat_id}")
+			product.categories.clear
+			product.categories << Category.find_by(external_id: "#{supplier}_#{cat_id}")
 			product.sku=sku
 
 			product.attr=nil
@@ -100,24 +100,24 @@ namespace :yml do
 
 			product.save!
 
-			# if product.new_record?
-				# product.images.where("created_at < :start_time", {start_time: start_time}).delete_all
-				# node.xpath('picture').each do |pic|
-				# 	pic_url=pic.content
-				# 	if not loaded_images.include?(pic_url)
-				# 		begin
-				# 			puts pic_url
-				# 			loaded_images << pic_url
+			if product.new_record?
+				product.images.where("created_at < :start_time", {start_time: start_time}).delete_all
+				node.xpath('picture').each do |pic|
+					pic_url=pic.content
+					if not loaded_images.include?(pic_url)
+						begin
+							puts pic_url
+							loaded_images << pic_url
 
-				# 			image=product.images.new
-				# 			image.remote_image_url=pic_url
-				# 			image.save
-				# 		rescue
-				# 			image.delete
-				# 		end
-				# 	end
-				# end
-			# end
+							image=product.images.new
+							image.remote_image_url=pic_url
+							image.save
+						rescue
+							image.delete
+						end
+					end
+				end
+			end
 		end
 # #	my $price=$offer->findvalue('price');
 # 	my $price=($offer->findnodes('price'))[0]->toString;

@@ -11,8 +11,7 @@ class Product < ActiveRecord::Base
 
   include  Seoable
 
-
-  include  Seoable
+  serialize :attr, Hash
 
   default_scope -> {order(sort_order: :asc)}
   scope :enabled, -> { where(enabled: 't') }
@@ -69,15 +68,15 @@ class Product < ActiveRecord::Base
     result.uniq[0..7]
   end
 
-  def discount_price
+  def get_discount
     max_discount1 = Promotion.current.joins(:products).where('products.id = ?', id).maximum(:discount) || 0
     max_discount2 = Promotion.current.joins(:categories).where('categories.id in (?)', categories.pluck(:id)).maximum(:discount) || 0
     max_discount = [max_discount1, max_discount2].max
 
-    #prices=variants.map {|v| v.price}   
+    #
     if max_discount>0
       return price * (100 - max_discount) / 100
-      # if prices.min == prices.max
+      # 
       #   return prices[0] * (100 - max_discount) / 100
       # else
       #   return "от #{prices.min * (100 - max_discount) / 100} до #{prices.max * (100 - max_discount) / 100}"
@@ -87,13 +86,23 @@ class Product < ActiveRecord::Base
     false
   end
 
-  def price_str(quantity=1)
-    if !price
+  def price_str
+    prices=variants.map {|v| v.price}   
+    discount=get_discount
+    if prices.count==0
       "по запросу"
-    elsif discount_price
-      "<del>#{price*quantity}</del> #{discount_price*quantity} руб."
+    elsif discount
+      if prices.min == prices.max
+        "<del>#{prices[0]}</del> #{price[0] * (100-discount)} руб."
+      else
+        "<del>от #{prices.min} до #{prices.max} руб.</del> от #{prices.min * (100-discount)} до #{prices.max * (100-discount)} руб."
+      end
     else
-      "#{price*quantity} руб."
+      if prices.min == prices.max
+        "#{prices[0]} руб."
+      else
+        "от #{prices.min} до #{prices.max} руб."
+      end
     end
   end
 

@@ -83,13 +83,14 @@
         /   .navbar-text
         /     =Settings.owner_phone
 
+      =render '/categories/breadcrumbs'
       .row
         -if Settings.disable_categories
           .col-sm-12
             = yield
         -else
           .col-sm-3
-            =render '/categories/tree'
+            =render '/categories/smart_tree'
           .col-sm-9
             = yield
 

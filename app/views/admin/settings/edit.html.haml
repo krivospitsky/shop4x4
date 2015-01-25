@@ -5,4 +5,5 @@
   = settings_form.input :owner_email, input_html: { value: Settings.owner_email }
   = settings_form.input :disable_categories, as: :boolean, input_html: { checked: Settings.disable_categories }
   = settings_form.input :hide_count_in_product, as: :boolean, input_html: { checked: Settings.hide_count_in_product }
+  = settings_form.input :enable_variants, as: :boolean, input_html: { checked: Settings.enable_variants }
   = settings_form.button :submit

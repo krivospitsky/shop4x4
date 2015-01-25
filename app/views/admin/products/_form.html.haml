@@ -13,18 +13,19 @@
       = f.input :count
       = f.input :enabled
 
-      / %table.table.variants
-      /   %tr
-      /     %td Name
-      /     %td SKU
-      /     %td Price
-      /     %td Count
-      /     %td Ena
-      /     %td Action
-      /   -#f.object.variants.build unless f.object.variants.first
-      /   = f.fields_for :variants do |variant|
-      /     = render 'variant_fields', :f => variant
-      / = link_to_add_association 'Добавить вариант', f, :variants, class: "btn btn-success btn-xs", "data-association-insertion-node" => ".variants_table", "data-association-insertion-method" => "append"
+      -if Settings.enable_variants
+        %table.table.variants
+          %tr
+            %td Name
+            %td SKU
+            %td Price
+            %td Count
+            %td Ena
+            %td Action
+          -#f.object.variants.build unless f.object.variants.first
+          = f.fields_for :variants do |variant|
+            = render 'variant_fields', :f => variant
+        = link_to_add_association 'Добавить вариант', f, :variants, class: "btn btn-success btn-xs", "data-association-insertion-node" => ".variants_table", "data-association-insertion-method" => "append"
 
       = f.input :description, as: :ckeditor, input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]} ]}}
 

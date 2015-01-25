@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150103124047) do
+ActiveRecord::Schema.define(version: 20150124141859) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20150103124047) do
     t.integer  "sort_order"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "external_id"
   end
 
   create_table "categories_linked_categories", force: :cascade do |t|
@@ -142,6 +143,7 @@ ActiveRecord::Schema.define(version: 20150103124047) do
     t.integer  "sort_order"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "attr"
   end
 
   create_table "products_linked_categories", force: :cascade do |t|

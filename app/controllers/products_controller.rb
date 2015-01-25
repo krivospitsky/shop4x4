@@ -14,6 +14,19 @@ class ProductsController < ApplicationController
     @title=@product.title
     @linked=@product.linked
     @cart_item = @current_cart.cart_items.new(product_id: @product.id, quantity:1)
+
+    @breadcrumbs=[]
+    @breadcrumbs << @product
+    if params[:category_path]
+      
+      tmp=Category.find(params[:category_path].split('/').last)
+      while tmp do 
+        @breadcrumbs << tmp
+        tmp=tmp.parent
+      end
+      @breadcrumbs=@breadcrumbs.reverse
+    end
+
   end
 
   def index
@@ -21,6 +34,15 @@ class ProductsController < ApplicationController
       @category = Category.find(params[:category_id])
       @products=@category.products.enabled
       @title = @category.name
+
+      @breadcrumbs=[]
+      tmp=@category
+      while tmp do 
+        @breadcrumbs << tmp
+        tmp=tmp.parent
+      end
+      @breadcrumbs=@breadcrumbs.reverse
+
     else
       @products=Product.enabled
     end

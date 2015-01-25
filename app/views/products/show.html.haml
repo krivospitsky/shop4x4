@@ -5,72 +5,114 @@
   %h1{itemprop:"name"}
     =@title
   #product-info
-    -if @product.images.count >5
-      .row
-        .col-md-2.col-md-offset4.col-sm-2.col-sm-offset4.prev.icon-angle-up
+    / -if @product.images.count >5
+    /   .row
+    /     .col-md-2.col-md-offset4.col-sm-2.col-sm-offset4.prev.icon-angle-up
     .row
-      .col-xs-12.col-sm-4.main-img
-        =link_to(image_tag(@product.images.first.image.url(:product_page), {itemprop:"image", title:@product.name, alt:@product.name}), @product.images.first.image.url, class:"fancybox") if @product.images.first
+      .col-xs-12.col-sm-4
+        .main-img
+          =link_to(image_tag(@product.images.first.image.url(:product_page), {itemprop:"image", title:@product.name, alt:@product.name}), @product.images.first.image.url, class:"fancybox") if @product.images.first
 
-      -if @product.images.count >1
-        .col-sm-2.col-md-2.images_thumbs
-          %ul
-            -@product.images[1..-1].each do |img|
-              %li
-                .image_thumb
-                  =link_to(image_tag(img.image.url(:thumb), itemprop:"image", title:@product.name, alt:@product.name), img.image.url, class:"fancybox")
-        :javascript
-          $(document).ready(function($) {
-            $(".images_thumbs").jCarouselLite({
-              btnNext: ".next",
-              btnPrev: ".prev",
-              vertical: true,
-              visible: 4
+        -if @product.images.count >1
+          .col-sm-2.col-md-2.images_thumbs
+            %ul
+              -@product.images[1..-1].each do |img|
+                %li
+                  .image_thumb
+                    =link_to(image_tag(img.image.url(:thumb), itemprop:"image", title:@product.name, alt:@product.name), img.image.url, class:"fancybox")
+          :javascript
+            $(document).ready(function($) {
+              $(".images_thumbs").jCarouselLite({
+                btnNext: ".next",
+                btnPrev: ".prev",
+                visible: 4
+              });
             });
-          });
       .col-xs-12.col-sm-8.dl-horizontal
         / .availability
         /   %dt Наличие
         /   %dd= @product.availability
         .description{itemprop:"description"}
-          %p
-            %strong Артикул:
-            =@product.sku
+          -if @product.variants.count==1
+            %p
+              %strong Артикул:
+              =@product.variant.first.sku
 
           =raw @product.description
-
-        = form_for @cart_item do |f|
-          .price{itemprop:"offers", itemscope:'', itemtype:"http://schema.org/Offer"}
-            = f.hidden_field :product_id
+          -if @product.attr
+            %table.table.table-condensed.attributes
+              -@product.attr.keys.each do |key|
+                %tr
+                  %td
+                    =key
+                  %td
+                    =@product.attr[key]
+            -if @product.attr.keys.count > 5 
+              %a.show-all{href:'#'}
+                Показать все
               
-            -if @product.variants.count<=1
-              %strong Цена
-              =@product.price_str
-            -else
-              -@product.variants.enabled.each do |variant|
-                .radio
-                  %label
-                    %input(type="radio" value="#{variant.id}" name="variant_id")
-                    =raw "#{variant.name} (#{variant.price_str})"
 
-          -if Settings.hide_count_in_product
-            = f.hidden_field :quantity
-            %button.btn.btn-sm.btn-primary{type:'submit'}
-              %span.glyphicon.glyphicon-shopping-cart
-              Купить
-          -else
-            .input-group.buy_button
-              %span.input-group-btn
-                %button.btn.btn-primary{type:'submit'}
-                  %span.glyphicon.glyphicon-shopping-cart
-                  Купить
-              = f.text_field :quantity, class: 'form-control'
-              %span.input-group-addon 
-                шт.  
+             
+          -if @product.variants.count==1
+            = form_for @cart_item do |f|
+              .price{itemprop:"offers", itemscope:'', itemtype:"http://schema.org/Offer"}
+                = f.hidden_field :product_id
+                %strong Цена
+                =@product.variant.first.price_str
+                -if Settings.hide_count_in_product
+                  = f.hidden_field :quantity
+                  %button.btn.btn-sm.btn-primary{type:'submit'}
+                    %span.glyphicon.glyphicon-shopping-cart
+                    Купить
+                -else
+                  .input-group.buy_button
+                    %span.input-group-btn
+                      %button.btn.btn-primary{type:'submit'}
+                        %span.glyphicon.glyphicon-shopping-cart
+                        Купить
+                    = f.text_field :quantity, class: 'form-control'
+                    %span.input-group-addon 
+                      шт.  
+      -if @product.variants.count>1
+        %table.table.table-striped
+          %tr
+            %th Имя
+            %th Цена
+            %th Купить
 
-    -if @product.images.count >5
-      .row
-        .col-sm-2.col-sm-offset4.col-md-2.col-md-offset4.next.icon-angle-down
+          -@product.variants.enabled.each do |variant|
+            %tr  
+              = form_for @cart_item do |f|
+                = f.hidden_field :product_id
+                %input(type="hidden" value="#{variant.id}" name="cart_item[variant_id]")
+                  %td 
+                    =variant.name
+                    %br
+                    %small
+                      Артикул:
+                      =variant.sku                   
+                  %td 
+                    =raw variant.price_str
+                  %td
+                    -if Settings.hide_count_in_product
+                      = f.hidden_field :quantity
+                      %button.btn.btn-sm.btn-primary{type:'submit'}
+                        %span.glyphicon.glyphicon-shopping-cart
+                        Купить
+                    -else
+                      .input-group.buy_button.input-group-sm
+                        %span.input-group-btn
+                          %button.btn.btn-primary{type:'submit'}
+                            %span.glyphicon.glyphicon-shopping-cart
+                            Купить
+                        = f.text_field :quantity, class: 'form-control'
+                        %span.input-group-addon 
+                          шт.  
+
+
+    / -if @product.images.count >5
+    /   .row
+    /     .col-sm-2.col-sm-offset4.col-md-2.col-md-offset4.next.icon-angle-down
 
   -if ! @linked.empty?
     #related.row

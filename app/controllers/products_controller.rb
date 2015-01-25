@@ -18,7 +18,7 @@ class ProductsController < ApplicationController
     @breadcrumbs=[]
     @breadcrumbs << @product
     if params[:category_path]
-      
+
       tmp=Category.find(params[:category_path].split('/').last)
       while tmp do 
         @breadcrumbs << tmp
@@ -32,7 +32,7 @@ class ProductsController < ApplicationController
   def index
     if params[:category_id]
       @category = Category.find(params[:category_id])
-      @products=@category.products.enabled
+      @products=@category.products_in_all_sub_cats
       @title = @category.name
 
       @breadcrumbs=[]

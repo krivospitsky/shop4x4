@@ -32,4 +32,13 @@ class Category < ActiveRecord::Base
     id.to_s
   end
 
+  def products_in_all_sub_cats
+    all_products = products.enabled.to_a
+    children.each do |sub|
+      all_products += sub.products_in_all_sub_cats
+      end
+
+    all_products
+  end
+
 end

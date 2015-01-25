@@ -3,10 +3,10 @@
 -if @category
 	.row
 		.col-md-9= @category.description
-	-if @category.children
-		.row
-			- @category.children.each do |child|
-				=  child.name
+	/ -if @category.children
+	/ 	.row
+	/ 		- @category.children.each do |child|
+	/ 			=  child.name
 
 -if @products && ! @products.empty?
 	.row

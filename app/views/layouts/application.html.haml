@@ -35,9 +35,10 @@
             =image_tag 'logo.png', class: 'logo'
           .col-sm-6
             .font_0
-              НАСТОЯЩИЙ АБРАЗИВ
-            .font_4
-              Диск — всему голова
+              =Settings.site_title
+            -if Settings.site_title_2
+              .font_4
+                =Settings.site_title_2
     .container-fixed
       %nav.navbar.text-center
         %a.btn.btn-primary.navbar-btn{href: catalog_path}

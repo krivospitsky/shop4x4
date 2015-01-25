@@ -1,5 +1,6 @@
 =simple_form_for :settings do |settings_form|
   = settings_form.input :site_title, input_html: { value: Settings.site_title }
+  = settings_form.input :site_title_2, input_html: { value: Settings.site_title_2 }
   = settings_form.input :site_url, input_html: { value: Settings.site_url }
   = settings_form.input :owner_phone, input_html: { value: Settings.owner_phone }
   = settings_form.input :owner_email, input_html: { value: Settings.owner_email }

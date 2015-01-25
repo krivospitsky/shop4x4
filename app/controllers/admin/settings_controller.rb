@@ -3,6 +3,7 @@ class Admin::SettingsController < ApplicationController
 
   def update
     Settings.site_title=params[:settings][:site_title]
+    Settings.site_title_2=params[:settings][:site_title_2]
     Settings.site_url=params[:settings][:site_url]
     Settings.owner_phone=params[:settings][:owner_phone]
     Settings.owner_email=params[:settings][:owner_email]

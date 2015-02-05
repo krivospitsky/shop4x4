@@ -48,6 +48,7 @@ GEM
       multi_json
     arel (6.0.0)
     bcrypt (3.1.9)
+    bcrypt (3.1.9-x64-mingw32)
     bootstrap-sass (3.1.1.1)
       sass (~> 3.2)
     builder (3.2.2)
@@ -107,6 +108,12 @@ GEM
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.1)
+    kaminari (0.16.2)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+    kaminari-bootstrap (3.0.1)
+      kaminari (>= 0.13.0)
+      rails
     kgio (2.9.2)
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
@@ -120,8 +127,11 @@ GEM
     multi_json (1.10.1)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
+    nokogiri (1.6.5-x64-mingw32)
+      mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
     pg (0.17.1)
+    pg (0.17.1-x64-mingw32)
     quiet_assets (1.0.3)
       railties (>= 3.1, < 5.0)
     rack (1.6.0)
@@ -206,6 +216,7 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     sqlite3 (1.3.9)
+    sqlite3 (1.3.9-x64-mingw32)
     subexec (0.2.3)
     thor (0.19.1)
     thread_safe (0.3.4)
@@ -226,6 +237,7 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw32
 
 DEPENDENCIES
   airbrake
@@ -243,6 +255,8 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   jquery-ui-rails
+  kaminari
+  kaminari-bootstrap
   mini_magick
   nokogiri
   pg

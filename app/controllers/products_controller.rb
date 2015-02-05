@@ -33,7 +33,8 @@ class ProductsController < ApplicationController
     @products=[]
     if params[:category_id]
       @category = Category.find(params[:category_id])
-      @products=@category.products_in_all_sub_cats
+      @products = Kaminari.paginate_array(@category.products_in_all_sub_cats).page(params[:page])
+      #@products=@category.products_in_all_sub_cats
       @title = @category.name
 
       @breadcrumbs=[]
@@ -45,7 +46,7 @@ class ProductsController < ApplicationController
       @breadcrumbs=@breadcrumbs.reverse
 
     else
-      @products=Product.enabled
+      @products=Product.enabled.page(params[:page])
     end
 
     @filters=Hash.new
@@ -54,6 +55,10 @@ class ProductsController < ApplicationController
         @filters[attr]=[] unless @filters[attr]
         @filters[attr] << prod.attr[attr] unless @filters[attr].include?(prod.attr[attr])
       end
+    end
+
+    @filters.keys.each do |filter|
+      @filters.delete(filter) if @filters[filter].size<2
     end
 
   end

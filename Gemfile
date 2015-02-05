@@ -79,3 +79,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 
 gem 'ranked-model'
+
+gem 'kaminari'
+gem 'kaminari-bootstrap'

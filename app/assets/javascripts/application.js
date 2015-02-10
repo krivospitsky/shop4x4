@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require fancybox
-//= require jcarousellite_1.0.1.pack
+//= require jquery.lightSlider.min
 //= require bootstrap
 //= require_tree .
 

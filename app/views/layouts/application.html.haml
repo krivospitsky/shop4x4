@@ -84,17 +84,7 @@
         /   .navbar-text
         /     =Settings.owner_phone
 
-      =render '/categories/breadcrumbs'
-      .row
-        -if Settings.disable_categories
-          .col-sm-12
-            = yield
-        -else
-          .col-sm-3
-            =render '/categories/smart_tree'
-            =render '/products/smart_filter'
-          .col-sm-9
-            = yield
+      = yield
 
     %footer.footer
       .container-fixed    

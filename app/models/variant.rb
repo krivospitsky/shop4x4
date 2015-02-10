@@ -2,6 +2,10 @@ class Variant < ActiveRecord::Base
   belongs_to :product
   scope :enabled, -> { where(enabled: 't') }
 
+  serialize :attr, Hash
+
+  mount_uploader :image, ImageUploader
+
 
   def discount_price
     max_discount1 = Promotion.current.joins(:products).where('products.id = ?', product.id).maximum(:discount) || 0

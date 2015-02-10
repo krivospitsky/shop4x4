@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150124141859) do
+ActiveRecord::Schema.define(version: 20150208085154) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -98,6 +98,13 @@ ActiveRecord::Schema.define(version: 20150124141859) do
 
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable"
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type"
+
+  create_table "description_images", force: :cascade do |t|
+    t.string   "original_url"
+    t.string   "image"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "images", force: :cascade do |t|
     t.integer  "product_id"
@@ -224,6 +231,8 @@ ActiveRecord::Schema.define(version: 20150124141859) do
     t.boolean  "enabled"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "attr"
+    t.string   "image"
   end
 
 end

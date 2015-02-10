@@ -28,7 +28,12 @@ class Category < ActiveRecord::Base
   before_validation { self.image.clear if self.delete_image == '1' }
 
   def path
-    return parent.path+"/"+id.to_s if parent
+    return parent.next_path if parent
+    nil
+  end
+
+  def next_path
+    return parent.next_path+"/"+id.to_s if parent
     id.to_s
   end
 

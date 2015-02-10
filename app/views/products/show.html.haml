@@ -1,3 +1,5 @@
+=render '/categories/breadcrumbs'
+
 #notice
   =notice
 
@@ -8,28 +10,34 @@
     / -if @product.images.count >5
     /   .row
     /     .col-md-2.col-md-offset4.col-sm-2.col-sm-offset4.prev.icon-angle-up
-    .main-img.pull-left
-      =link_to(image_tag(@product.images.first.image.url(:product_page), {itemprop:"image", title:@product.name, alt:@product.name}), @product.images.first.image.url, class:"fancybox") if @product.images.first
-      -if @product.images.count >1
-        .col-sm-2.col-md-2.images_thumbs
-          %ul
-            -@product.images[1..-1].each do |img|
-              %li
-                .image_thumb
-                  =link_to(image_tag(img.image.url(:thumb), itemprop:"image", title:@product.name, alt:@product.name), img.image.url, class:"fancybox")
-        :javascript
-          $(document).ready(function($) {
-            $(".images_thumbs").jCarouselLite({
-              btnNext: ".next",
-              btnPrev: ".prev",
-              visible: 4
+    -if @product.sku['expertfisher_']
+      %ul#lightSlider
+        -@product.images.each do |img|
+          %li
+            =image_tag(img.image.url(:expertfisher), {itemprop:"image", title:@product.name, alt:@product.name})
+    -else
+      .main-img.pull-left
+        =link_to(image_tag(@product.images.first.image.url(:product_page), {itemprop:"image", title:@product.name, alt:@product.name}), @product.images.first.image.url, class:"fancybox") if @product.images.first
+        -if @product.images.count >1
+          .col-sm-2.col-md-2.images_thumbs
+            %ul
+              -@product.images[1..-1].each do |img|
+                %li
+                  .image_thumb
+                    =link_to(image_tag(img.image.url(:thumb), itemprop:"image", title:@product.name, alt:@product.name), img.image.url, class:"fancybox")
+          :javascript
+            $(document).ready(function($) {
+              $(".images_thumbs").jCarouselLite({
+                btnNext: ".next",
+                btnPrev: ".prev",
+                visible: 4
+              });
             });
-          });
     .description{itemprop:"description"}
       -if @product.variants.count==1
         %p
           %strong Артикул:
-          =@product.variant.first.sku
+          =@product.variants.first.sku
 
       =raw @product.description
       -if @product.attr
@@ -51,7 +59,7 @@
           .price{itemprop:"offers", itemscope:'', itemtype:"http://schema.org/Offer"}
             = f.hidden_field :product_id
             %strong Цена
-            =@product.variant.first.price_str
+            =@product.variants.first.price_str
             -if Settings.hide_count_in_product
               = f.hidden_field :quantity
               %button.btn.btn-sm.btn-primary{type:'submit'}
@@ -70,7 +78,14 @@
     -if @product.variants.count>1
       %table.table.table-striped
         %tr
-          %th Имя
+          -if @product.variants.first.image?
+            %th
+          -if @product.variants.first.name
+            %th Имя
+          -else
+            %th Артикул
+          -@product.variants.first.attr.keys.each do |attr|
+            %th= attr
           %th Цена
           %th Купить
 
@@ -79,12 +94,21 @@
             = form_for @cart_item do |f|
               = f.hidden_field :product_id
               %input(type="hidden" value="#{variant.id}" name="cart_item[variant_id]")
-                %td 
-                  =variant.name
-                  %br
-                  %small
-                    Артикул:
+                -if @product.variants.first.image?
+                  %td
+                    -if variant.image?
+                      =image_tag(variant.image.url(:thumb))
+                %td
+                  -if variant.name 
+                    =variant.name
+                    %br
+                    %small
+                      Артикул:
+                      =variant.sku                   
+                  -else
                     =variant.sku                   
+                -variant.attr.keys.each do |attr|
+                  %td= variant.attr[attr]
                 %td 
                   =raw variant.price_str
                 %td

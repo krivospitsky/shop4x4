@@ -14,11 +14,12 @@ class ProductsController < ApplicationController
     @title=@product.title
     @linked=@product.linked
     @cart_item = @current_cart.cart_items.new(product_id: @product.id, quantity:1)
+    
+    @category = Category.find(params[:category_id])
 
     @breadcrumbs=[]
     @breadcrumbs << @product
     if params[:category_path]
-
       tmp=Category.find(params[:category_path].split('/').last)
       while tmp do 
         @breadcrumbs << tmp

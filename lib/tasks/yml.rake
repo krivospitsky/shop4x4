@@ -85,14 +85,16 @@ namespace :yml do
 			end
 			variant_name=product.name
 			variant_name+=" цвет #{color}" if color
-			variant_name+=" размер #{size}" if size
-			
+			variant_name+=" размер #{size}" if size		
 
 			variant=product.variants.find_or_create_by(sku: variant_sku)
 			variant.sku=variant_sku
 			variant.name=variant_name
 			variant.price=node.xpath('price').first.content
 			variant.enabled=true
+			variant.attr['Цвет']=color if color
+			variant.attr['Размер']=size if size
+
 			variant.save!
 
 			product.description=node.xpath('description').first.content if node.xpath('description').first
@@ -100,8 +102,8 @@ namespace :yml do
 
 			product.save!
 
-			# if product.new_record?
-				product.images.where("created_at < :start_time", {start_time: start_time}).delete_all
+			if product.images.count == 0
+#				product.images.where("created_at < :start_time", {start_time: start_time}).delete_all
 				node.xpath('picture').each do |pic|
 					pic_url=pic.content
 					if not loaded_images.include?(pic_url)
@@ -117,7 +119,7 @@ namespace :yml do
 						end
 					end
 				end
-			# end
+			end
 		end
 # #	my $price=$offer->findvalue('price');
 # 	my $price=($offer->findnodes('price'))[0]->toString;

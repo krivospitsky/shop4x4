@@ -82,3 +82,4 @@ gem 'ranked-model'
 
 gem 'kaminari'
 gem 'kaminari-bootstrap'
+gem 'russian'

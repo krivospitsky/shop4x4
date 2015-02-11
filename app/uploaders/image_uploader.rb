@@ -36,6 +36,10 @@ class ImageUploader < CarrierWave::Uploader::Base
      process :resize_to_fill => [50, 50]
   end
 
+  version :expertfisher_product_list do
+     process :resize_to_fill => [300, 150]
+  end
+
   version :product_list do
      process :resize_to_fill => [150, 150]
   end

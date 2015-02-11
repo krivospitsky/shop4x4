@@ -16,14 +16,6 @@ ru:
       index: "Акции и новости"
       new: "Создание новой новости"
       edit: "Редактирование новости"
-  activerecord:
-    models:
-      page: Страница
-    attributes:
-      page:
-        title: "Заголовок"
-        text: Текст
-        position: Показывать в
   helpers:
     submit:
       page:
@@ -41,3 +33,18 @@ ru:
       new: Добавить
       edit: Правка
       destroy: Удалить
+  activerecord:
+    models:
+      page: Страница
+      product: Товар
+      category: Категория
+      promotion: 
+        one: Акция
+        few: Акции
+        many: Акции
+        other: Акции
+    attributes:
+      page:
+        name: Название
+        text: Текст
+        position: Показывать в

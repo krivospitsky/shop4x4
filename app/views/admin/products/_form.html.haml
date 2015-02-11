@@ -4,7 +4,7 @@
   %li
     %a(href="#seo" data-toggle="tab") SEO
 
-= simple_form_for [:admin, @product], html: {class: 'form-horizontal' } do |f|
+= simple_form_for [:admin, @product] do |f|
   .tab-content
     .tab-pane.active#common
       = f.input :name

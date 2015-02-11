@@ -60,7 +60,7 @@ gem 'devise'
 gem 'cancan'
 gem "rails-settings-cached", "0.4.1"
 
-gem 'unicorn', :platforms => :ruby
+#gem 'unicorn', :platforms => :ruby
 gem 'rails_stdout_logging', group: :production
 
 gem 'rails-i18n'
@@ -83,3 +83,4 @@ gem 'ranked-model'
 gem 'kaminari'
 gem 'kaminari-bootstrap'
 gem 'russian'
+gem 'puma', :platforms => :ruby

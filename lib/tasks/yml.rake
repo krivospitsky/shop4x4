@@ -24,11 +24,13 @@ namespace :yml do
 			next if skip_cats.include?(id);
 
 			category=Category.find_or_create_by(external_id: "#{supplier}_#{id}")
-			category.parent=Category.find_by(external_id: "#{supplier}_#{parent_id}") if parent_id
-			category.external_id="#{supplier}_#{id}"
-			category.name=node.content.strip
-			category.enabled=true
-			category.save!
+			if category.new_record?
+				category.parent=Category.find_by(external_id: "#{supplier}_#{parent_id}") if parent_id
+				category.external_id="#{supplier}_#{id}"
+				category.name=node.content.strip
+				category.enabled=true
+				category.save!
+			end
 		end
 
 		yml.xpath('//offers/offer').each do |node|

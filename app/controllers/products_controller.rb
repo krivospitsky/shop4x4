@@ -19,8 +19,8 @@ class ProductsController < ApplicationController
 
     @breadcrumbs=[]
     @breadcrumbs << @product
-    if params[:category_path]
-      tmp=Category.find(params[:category_path].split('/').last)
+    if params[:category_id]
+      tmp=Category.find(params[:category_id])
       while tmp do 
         @breadcrumbs << tmp
         tmp=tmp.parent

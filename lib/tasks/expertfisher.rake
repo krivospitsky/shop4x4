@@ -15,12 +15,14 @@ namespace :expertfisher do
 			ext_id=sub_url[/\/([^\/]+?)\.aspx/,1]
 			
 			category=Category.find_or_create_by(external_id: ext_id)
-			category.parent=Category.find_by(external_id: curr_ext_id) if curr_ext_id
-			category.external_id=ext_id
-			category.name=subcat.xpath('h4').first.content
-			puts category.name
-			category.enabled=true
-			category.save!
+			if category.new_record?
+				category.parent=Category.find_by(external_id: curr_ext_id) if curr_ext_id
+				category.external_id=ext_id
+				category.name=subcat.xpath('h4').first.content
+				puts category.name
+				category.enabled=true
+				category.save!
+			end
 
 			ProcessCategory(sub_url)
 		end

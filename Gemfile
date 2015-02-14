@@ -83,4 +83,4 @@ gem 'ranked-model'
 gem 'kaminari'
 gem 'kaminari-bootstrap'
 gem 'russian'
-gem 'puma', :platforms => :ruby
+gem 'puma'

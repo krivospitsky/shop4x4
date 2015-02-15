@@ -33,6 +33,7 @@ namespace :yml do
 				category.parent=Category.find_by(external_id: "#{supplier}_#{parent_id}") if parent_id
 				category.external_id="#{supplier}_#{id}"
 				category.name=name
+				puts category.name
 				category.enabled=true
 				category.save!
 			end

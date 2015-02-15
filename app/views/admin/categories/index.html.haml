@@ -4,9 +4,9 @@
       %th= Category.human_attribute_name(:name)
       %th= Category.human_attribute_name(:enabled)
       %th=t '.actions', :default => t("helpers.actions")
-  %tbody
+  %tbody#categories_list.sortable
     - @categories.each do |category|
-      %tr
+      %tr{id: category.id}
         %td= category.name
         %td
           -if category.enabled

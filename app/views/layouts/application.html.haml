@@ -88,20 +88,29 @@
       = yield
 
     %footer.footer
-      .container-fixed    
-        %nav.navbar.text-center
-          %a.btn.btn-default.navbar-btn{href: catalog_path}
-            Каталог
-          -Page.in_footer.each do |page|
-            =link_to page.name, page_path(page), class: 'btn btn-default navbar-btn'
-          %a.btn.btn-default.navbar-btn{href: cart_path}
-            .glyphicon.glyphicon-shopping-cart
-            Корзина
-            .badge= @current_cart.cart_items.count.to_s   
-          %hr
-          &copy; 2014 ИП Давыдов В.Н.
-          %br
-          Абразивные диски в Калуге и Туле
-
+      .container-fixed
+        .row
+          .col-sm-4
+            &copy; Интернет-магазин «Рыбалофф» 2001–2014
+            %br
+            %br
+            Мы работаем для Вас будни: 8:00 - 19:00 суббота, воскресенье : 08:00 - 17:00
+            %h3
+              +7 920 618 00 50
+          .col-sm-4
+            Принимаем к оплате
+          .col-sm-4
+            %nav.navbar.text-center
+              %a.btn.btn-default.navbar-btn{href: catalog_path}
+                Каталог
+              -Page.in_footer.each do |page|
+                =link_to page.name, page_path(page), class: 'btn btn-default navbar-btn'
+              %a.btn.btn-default.navbar-btn{href: cart_path}
+                .glyphicon.glyphicon-shopping-cart
+                Корзина
+                .badge= @current_cart.cart_items.count.to_s   
+        %hr
+        %small
+          Сайт Рыболофф разрешает вам просматривать и загружать материалы этого сайта (далее «Сайт») только для личного некоммерческого использования, при условии сохранения вами всей информации об авторском праве и других сведений о праве собственности, содержащихся в исходных материалах и любых их копиях. Запрещается изменять материалы этого Сайта, а также распространять или демонстрировать их в любом виде или использовать их любым другим образом для общественных или коммерческих целей. Любое использование этих материалов на других сайтах или в компьютерных сетях запрещается. 
     <!-- Yandex.Metrika counter -->
     <!-- RedHelper -->

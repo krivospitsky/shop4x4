@@ -17,8 +17,11 @@ class Category < ActiveRecord::Base
     :join_table => "categories_linked_categories",
     :association_foreign_key=> 'linked_category_id')
 
+  default_scope -> {order(sort_order: :asc)}
   scope :enabled, -> { where(enabled: 't') }
 
+  include RankedModel
+    ranks :sort_order
 
   mount_uploader :image, ImageUploader
 
@@ -39,7 +42,7 @@ class Category < ActiveRecord::Base
 
   def all_sub_cats
     sub_cats=[]
-    children.each do |sub|
+    children.enabled.each do |sub|
       sub_cats += sub.all_sub_cats
     end
     sub_cats << self

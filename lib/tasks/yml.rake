@@ -26,6 +26,8 @@ namespace :yml do
 			skip_cats << id if skip_cats.include?(parent_id)
 			next if skip_cats.include?(id);
 
+			puts node.content.strip
+
 			category=Category.find_or_create_by(external_id: "#{supplier}_#{id}")
 			if category.new_record?
 				category.parent=Category.find_by(external_id: "#{supplier}_#{parent_id}") if parent_id

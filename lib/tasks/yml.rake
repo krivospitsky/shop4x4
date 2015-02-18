@@ -28,7 +28,7 @@ namespace :yml do
 
 			name=node.content.strip
 
-			category=Category.find_or_create_by(external_id: "#{supplier}_#{id}")
+			category=Category.find_or_initialize_by(external_id: "#{supplier}_#{id}")
 			if category.new_record?
 				category.parent=Category.find_by(external_id: "#{supplier}_#{parent_id}") if parent_id
 				category.external_id="#{supplier}_#{id}"
@@ -53,7 +53,7 @@ namespace :yml do
 			sku="#{supplier}_#{id}"
 			sku="nova_#{manufacturer}.#{vendorCode}" if supplier == 'nova'
 
-			product=Product.find_or_create_by(sku: sku)
+			product=Product.find_or_initialize_by(sku: sku)
 			if (supplier == 'camp')
 				product.name=node.xpath('typePrefix').first.content
 			elsif supplier == 'salmo'
@@ -95,7 +95,7 @@ namespace :yml do
 			variant_name+=" цвет #{color}" if color
 			variant_name+=" размер #{size}" if size		
 
-			variant=product.variants.find_or_create_by(sku: variant_sku)
+			variant=product.variants.find_or_initialize_by(sku: variant_sku)
 			variant.sku=variant_sku
 			variant.name=variant_name
 			variant.price=node.xpath('price').first.content

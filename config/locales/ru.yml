@@ -1,4 +1,10 @@
 ru:
+  cart:
+    count:
+      one: В корзине один товар
+      few: В корзине %{count} товара
+      many: В корзине %{count} товаров
+      zero: В корзине нет товаров
   title:
     pages:
       index: "Cтраницы"

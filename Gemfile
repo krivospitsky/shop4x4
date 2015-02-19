@@ -84,3 +84,8 @@ gem 'kaminari'
 gem 'kaminari-bootstrap'
 gem 'russian'
 gem 'puma'
+
+group :development do
+  gem "better_errors"
+  gem "binding_of_caller" 
+end

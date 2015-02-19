@@ -24,5 +24,6 @@ module Shop
     config.autoload_paths += %W( #{config.root}/lib )
     config.assets.precompile += Ckeditor.assets
     config.assets.precompile += %w(ckeditor/*)
+    config.assets.precompile += ['admin/admin.css', 'admin/admin.js']
   end
 end

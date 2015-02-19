@@ -58,6 +58,7 @@
         = form_for @cart_item do |f|
           .price{itemprop:"offers", itemscope:'', itemtype:"http://schema.org/Offer"}
             = f.hidden_field :product_id
+            %input(type="hidden" value="#{@product.variants.first.id}" name="cart_item[variant_id]")
             %strong Цена
             =@product.variants.first.price_str
             -if Settings.hide_count_in_product

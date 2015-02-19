@@ -58,9 +58,9 @@
             =link_to item.product.name, product_path(item.product)
           %td
             %small
-              = item.product.price_str
+              = item.variant.price_str
           %td
             =item.quantity
           %td
             %small
-              = item.product.price_str(item.quantity)
+              = item.variant.price_str(item.quantity)

@@ -35,14 +35,26 @@ ru:
       destroy: Удалить
   activerecord:
     models:
-      page: Страница
-      product: Товар
-      category: Категория
+      page: 
+        one: Страница
+        few: Страницы
+        many: Страниц
+        other: Страницы
+      product: 
+        one: Товар
+        few: Товара
+        many: Товаров
+        other: Товара
+      category: 
+        one: Категория
+        few: Категории
+        many: Категорий
+        other: Категории
       promotion: 
         one: Акция
         few: Акции
-        many: Акции
-        other: Акции
+        many: Акций
+        other: Акций
     attributes:
       page:
         name: Название

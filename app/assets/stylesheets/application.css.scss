@@ -39,9 +39,9 @@ $brand-primary: #31464C;
   margin-bottom:0px;
 }
 
-#search_form{
+/*#search_form{
   width:200px;
-}
+}*/
 
 .navbar-center>a {
         float: none;	
@@ -56,13 +56,25 @@ $brand-primary: #31464C;
 }
 
 .header,.footer{
-    background-color: $brand-primary;
-    margin-bottom: 10px;
-    color: white;
+  background-color: $brand-primary;
+  margin-bottom: 10px;
+  color: white;
 	padding: 10px;
 	text-align: center;
+  ul{
+   text-align: left;  
+    a{
+      color: inherit;  
+    }
+  }
 }
+
 
 .logo{
 /*	width:100%;*/
+}
+
+.footer .small{
+  font-size: 7pt;
+
 }

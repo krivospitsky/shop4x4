@@ -31,7 +31,7 @@
     %header.header
       .container-fixed
         .row
-          .col-sm-6
+          .col-sm-3
             =link_to root_path do
               =image_tag 'logo.png', class: 'logo'
           .col-sm-6
@@ -40,25 +40,29 @@
             -if Settings.site_title_2
               .font_4
                 =Settings.site_title_2
+          .col-sm-3
+            %a.btn.btn-default{href: cart_path}
+              .glyphicon.glyphicon-shopping-cart
+              В корзине  
+              = @current_cart.cart_items.count.to_s
+              товаров
+
+            =form_tag catalog_search_path, method: 'get', id: 'search_form', role: 'search' do
+              .input-group
+                %input.form-control{type:"text", placeholder:"Поиск", name: "text"}
+                %span.input-group-btn.input-group-sm
+                  %button.btn.btn-default.btn.xs{type: 'submit'}
+                    %span.glyphicon.glyphicon-search
+
     .container-fixed
       %nav.navbar.text-center
         %a.btn.btn-primary.navbar-btn{href: catalog_path}
           Каталог
         -Page.in_menu.each do |page|
           =link_to page.name, page_path(page), class: 'btn btn-primary navbar-btn'
-        %a.btn.btn-primary.navbar-btn{href: cart_path}
-          .glyphicon.glyphicon-shopping-cart
-          Корзина
-          .badge= @current_cart.cart_items.count.to_s
 
           / %ul.nav.navbar-nav
           /   %li
-          /     =form_tag catalog_search_path, method: 'get', class: 'navbar-form navbar-right', id: 'search_form', role: 'search' do
-          /       .input-group
-          /         %input.form-control{type:"text", placeholder:"Поиск", name: "text"}
-          /         %span.input-group-btn.input-group-sm
-          /           %button.btn.btn-default.btn.xs{type: 'submit'}
-          /             %span.glyphicon.glyphicon-search
 
           / -%li.dropdown
           /   %a.dropdown-toggle{href:"#", 'data-toggle'=>"dropdown"}
@@ -91,26 +95,22 @@
       .container-fixed
         .row
           .col-sm-4
-            &copy; Интернет-магазин «Рыбалофф» 2001–2014
-            %br
-            %br
             Мы работаем для Вас будни: 8:00 - 19:00 суббота, воскресенье : 08:00 - 17:00
-            %h3
+            %h4
               +7 920 618 00 50
           .col-sm-4
             Принимаем к оплате
+            =image_tag('payment_methods.png')
           .col-sm-4
-            %nav.navbar.text-center
-              %a.btn.btn-default.navbar-btn{href: catalog_path}
-                Каталог
+            %ul
+              %li
+                =link_to 'Каталог', catalog_path                    
               -Page.in_footer.each do |page|
-                =link_to page.name, page_path(page), class: 'btn btn-default navbar-btn'
-              %a.btn.btn-default.navbar-btn{href: cart_path}
-                .glyphicon.glyphicon-shopping-cart
-                Корзина
-                .badge= @current_cart.cart_items.count.to_s   
+                %li
+                  =link_to page.name, page_path(page)
         %hr
-        %small
+        &copy; Интернет-магазин «Рыбалофф» 2001–2015
+        .small
           Сайт Рыболофф разрешает вам просматривать и загружать материалы этого сайта (далее «Сайт») только для личного некоммерческого использования, при условии сохранения вами всей информации об авторском праве и других сведений о праве собственности, содержащихся в исходных материалах и любых их копиях. Запрещается изменять материалы этого Сайта, а также распространять или демонстрировать их в любом виде или использовать их любым другим образом для общественных или коммерческих целей. Любое использование этих материалов на других сайтах или в компьютерных сетях запрещается. 
     <!-- Yandex.Metrika counter -->
     <!-- RedHelper -->

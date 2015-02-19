@@ -8,15 +8,14 @@
   .tab-content
     .tab-pane.active(id="common")
       = f.input :name
-      = f.input :description, as: :ckeditor, input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]} ]}}
+      = f.input :description, as: :ckeditor, input_html: {ckeditor: {toolbar: [{name: 'Edit', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ]}, {name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]}, {name: 'Other', items:['Source', 'Image', 'Table']} ]}}
       = f.input :enabled
       = f.input :external_id
-      = f.association :parent
-      = f.input :image, as: :image_preview, input_html: {preview_version: :thumb}
-
+      = f.association :parent, label_method: lambda { |cat| cat.name_with_path }, collection: Category.all.sort {|a,b| a.name_with_path <=> b.name_with_path}
       = f.association :linked_categories
       = f.association :linked_products
 
+      = f.input :image, as: :image_preview, input_html: {preview_version: :thumb}
     .tab-pane(id="seo")
       = render partial: 'seo', locals: {f: f}
 

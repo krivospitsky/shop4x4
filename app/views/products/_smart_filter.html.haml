@@ -1,7 +1,8 @@
 -if @filters
 	.panel.panel-default
 		.panel-heading
-			Фильтр
+			%strong
+				Фильтр
 		%ul.list-group
 			-@filters.keys.each do |param|
 				%li.list-group-item

@@ -1,6 +1,7 @@
 .panel.panel-default
 	.panel-heading
-		Категории
+		%strong
+			Категории
 	%ul.list-group
 		-if controller.controller_name == 'products' && (controller.action_name == 'index' || controller.action_name == 'show') && @category
 			-if @category.children.enabled.size>0

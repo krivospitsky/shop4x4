@@ -99,7 +99,7 @@ namespace :yml do
 			variant.sku=variant_sku
 			variant.name=variant_name
 			price=node.xpath('price').first.content
-			price[',']=''
+			price.gsub!(/,/, '')
 			variant.price=price
 			variant.enabled=true
 			variant.attr['Цвет']=color if color

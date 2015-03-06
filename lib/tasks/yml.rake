@@ -98,7 +98,9 @@ namespace :yml do
 			variant=product.variants.find_or_initialize_by(sku: variant_sku)
 			variant.sku=variant_sku
 			variant.name=variant_name
-			variant.price=node.xpath('price').first.content
+			price=node.xpath('price').first.content
+			price[' ']=''
+			variant.price=price
 			variant.enabled=true
 			variant.attr['Цвет']=color if color
 			variant.attr['Размер']=size if size

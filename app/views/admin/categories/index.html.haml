@@ -8,7 +8,7 @@
   %tbody#categories_list.sortable
     - @categories.each do |category|
       %tr{id: category.id}
-        %td= category.name
+        %td= category.name_with_path
         %td
           -if category.enabled
             %i.glyphicon.glyphicon-ok

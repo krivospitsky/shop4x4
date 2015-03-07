@@ -27,16 +27,20 @@ namespace :yml do
 			next if skip_cats.include?(id);
 
 			name=node.content.strip
+			if supplier == 'salmo'
+				name.gsub!(/^(\d|\.)*\s/, '')
+				name=name.mb_chars.capitalize
+			end
 
 			category=Category.find_or_initialize_by(external_id: "#{supplier}_#{id}")
+			category.name=name
 			if category.new_record?
 				category.parent=Category.find_by(external_id: "#{supplier}_#{parent_id}") if parent_id
 				category.external_id="#{supplier}_#{id}"
-				category.name=name
 				puts category.name
 				category.enabled=true
-				category.save!
 			end
+			category.save!
 		end
 
 		yml.xpath('//offers/offer').each do |node|

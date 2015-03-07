@@ -33,7 +33,7 @@ class Category < ActiveRecord::Base
 
   def name_with_path
     if parent    
-      return "#{name} -> #{parent.name_with_path}"
+      return "#{parent.name_with_path} -> #{name}"
     else
       return name
     end

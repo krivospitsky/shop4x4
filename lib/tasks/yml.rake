@@ -33,14 +33,14 @@ namespace :yml do
 			end
 
 			category=Category.find_or_initialize_by(external_id: "#{supplier}_#{id}")
-			category.name=name
 			if category.new_record?
 				category.parent=Category.find_by(external_id: "#{supplier}_#{parent_id}") if parent_id
+				category.name=name
 				category.external_id="#{supplier}_#{id}"
 				puts category.name
 				category.enabled=true
+				category.save!
 			end
-			category.save!
 		end
 
 		yml.xpath('//offers/offer').each do |node|

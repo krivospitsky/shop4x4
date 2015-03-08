@@ -4,6 +4,10 @@ class Order < ActiveRecord::Base
   has_many :cart_items, foreign_key: :cart_id, primary_key: :cart_id
   accepts_nested_attributes_for :cart_items, allow_destroy:true
 
+  # validates :name, presence: true
+#  validates :email, presence: true
+  validates :phone, presence: true
+
   state_machine :state, :initial => :Новый do
     event :processing do
       transition :Новый => :Обработка

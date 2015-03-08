@@ -17,9 +17,9 @@ Shop::Application.routes.draw do
 
   resources :cart_items
  # get 'login' => 'auth#index'
-  post '/cart/add' => 'cart#add'
-  get '/cart' => 'cart#show'
+  get '/cart' => 'orders#new'
   get '/cart/delete/:product_id' => 'cart#delete'
+  post '/cart/add' => 'cart#add'
 
     # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

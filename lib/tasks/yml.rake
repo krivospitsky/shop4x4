@@ -106,6 +106,9 @@ namespace :yml do
 			price.gsub!(/,/, '')
 			variant.price=price
 			variant.enabled=true
+
+			variant.availability='Доставка 5 дней' if supplier=='nova'
+
 			variant.attr['Цвет']=color if color
 			variant.attr['Размер']=size if size
 

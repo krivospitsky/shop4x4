@@ -30,7 +30,7 @@ class Product < ActiveRecord::Base
     :association_foreign_key=> 'linked_product_id' )
 
   def self.search(search)
-    where('lower(name) LIKE :search', search: search.mb_chars.downcase)
+    where('lower(name) LIKE lower(:search)', search: search)
   end
 
   # def price

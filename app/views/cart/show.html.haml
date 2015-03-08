@@ -18,6 +18,8 @@
 							&times;
 						%h4.modal-title Оформление заказа
 					.modal-body
+						-if flash[:error]
+							.alert.alert-danger= flash[:error]
 						= form_for @order, class:'form-horizontal' do |f|
 							.row
 								.col-md-5.col-md-offset-1
@@ -53,3 +55,7 @@
 -else
 	%p.bg-primary
 		Корзина пуста
+
+-if flash[:error]
+	:javascript
+		$('#order-info').modal('show')  		

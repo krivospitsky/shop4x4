@@ -1,46 +1,74 @@
-%p#notice= notice
+-if flash[:info]
+  .alert.alert-success= flash[:info]
+
+
+-if !@order.name.empty?
+  %dl.dl-horizontal
+    %dt Имя
+    %dd
+      =@order.name
+
+-if !@order.email.empty?
+  %dl.dl-horizontal
+    %dt E-mail
+    %dd
+      =@order.email
+
+-if !@order.phone.empty?
+  %dl.dl-horizontal
+    %dt Телефон
+    %dd
+      =@order.phone
+
+-if !@order.zip.empty?
+  %dl.dl-horizontal
+    %dt Индекс
+    %dd
+      =@order.zip
+
+-if !@order.city.empty?
+  %dl.dl-horizontal
+    %dt Город
+    %dd
+      =@order.city
+
+-if !@order.address.empty?
+  %dl.dl-horizontal
+    %dt Адрес
+    %dd
+      =@order.address
+
+-if !@order.comment.empty?
+  %dl.dl-horizontal
+    %dt Коментарий
+    %dd
+      =@order.comment
 
 %dl.dl-horizontal
-  %dt Имя
+  %dt Статус
   %dd
-    =@order.name
+    = @order.state
 
-%dl.dl-horizontal
-  %dt e-mail
-  %dd
-    =@order.email
+%table.table.table-condensed
+  %tr
+    %td Товар
+    %td Цена
+    %td Количество
+    %td Сумма
+  -@order.cart.cart_items.all.each do |item|
+    %tr
+      %td
+        =link_to product_path(item.product) do
+          =image_tag item.product.images.first.image.url(:thumb)
+          =item.product.name
+      %td
+        %small
+          = item.product.price_str
+      %td
+        %small
+          = item.quantity
+      %td
+        %small
+          = item.variant.price_str(item.quantity)
 
-%dl.dl-horizontal
-  %dt телефон
-  %dd
-    =@order.phone
 
-%dl.dl-horizontal
-  %dt Индекс
-  %dd
-    =@order.zip
-
-%dl.dl-horizontal
-  %dt Город
-  %dd
-    =@order.city
-
-%dl.dl-horizontal
-  %dt Адрес
-  %dd
-    =@order.address
-
-%dl.dl-horizontal
-  %dt Коментарий
-  %dd
-    =@order.comment
-
-=render 'cart/cart_items', cart: Cart.find(@order.cart_id)
-
-%p
-  %b State:
-  = @order.state
-
-= link_to 'Edit', edit_order_path(@order)
-\|
-= link_to 'Back', orders_path

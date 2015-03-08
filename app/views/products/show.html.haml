@@ -45,6 +45,9 @@
           .price{itemprop:"offers", itemscope:'', itemtype:"http://schema.org/Offer"}
             = f.hidden_field :product_id
             %input(type="hidden" value="#{@product.variants.first.id}" name="cart_item[variant_id]")
+            %strong Наличие
+            =@product.variants.first.availability
+            %br
             %strong Цена
             =@product.variants.first.price_str
             -if Settings.hide_count_in_product
@@ -87,6 +90,7 @@
             %th Артикул
           -@product.variants.first.attr.keys.each do |attr|
             %th= attr
+          %th Наличие
           %th Цена
           %th Купить
 
@@ -110,6 +114,8 @@
                     =variant.sku                   
                 -variant.attr.keys.each do |attr|
                   %td= variant.attr[attr]
+                %td 
+                  =variant.availability
                 %td 
                   =raw variant.price_str
                 %td

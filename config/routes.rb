@@ -1,6 +1,5 @@
 Shop::Application.routes.draw do
   devise_for :users
-  resources :orders
 
   mount Ckeditor::Engine => '/ckeditor'
 
@@ -15,11 +14,12 @@ Shop::Application.routes.draw do
   get 'catalog', to: 'products#index'
 #  resources :main
 
-  resources :cart_items
  # get 'login' => 'auth#index'
-  get '/cart' => 'orders#new'
+#  get '/cart', to: 'orders#new', as: '/cart'
+  resources :cart_items
   get '/cart/delete/:product_id' => 'cart#delete'
   post '/cart/add' => 'cart#add'
+  resources :orders
 
     # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -3,7 +3,31 @@
 	%h1 Корзина
 
 -if @current_cart.cart_items.count>0
-	=render 'cart_items', cart: @current_cart
+	%table.table.table-condensed
+		-@current_cart.cart_items.all.each do |item|
+			%tr
+				= form_for item, method:'patch' do |f|
+					%td
+						=link_to product_path(item.product) do
+							=image_tag item.product.images.first.image.url(:thumb)
+					%td
+						=link_to item.product.name, product_path(item.product)
+					%td
+						%small
+							= item.product.price_str
+					%td
+						.input-group.input-group-sm#quantity
+							=f.text_field :quantity, class:'form-control'
+							%span.input-group-btn
+								%button.btn.btn-xs{type:'submit'}
+									%span.glyphicon.glyphicon-refresh
+					%td
+						%small
+							= item.variant.price_str(item.quantity)
+				%td
+					=button_to item, :method => :delete, class:'btn btn-danger btn-xs' do
+						%span.glyphicon.glyphicon-trash
+						Удалить
 	%hr
 	=link_to 'Оформить заказ', "#", class:'btn btn-primary', 'data-toggle'=>"modal", 'data-target'=>"#order-info"
 	=#link_to 'Продолжить покупки', "", class:'btn btn-primary'
@@ -62,4 +86,4 @@
 
 -if @order.errors.any?
 	:javascript
-		$('#order-info').modal('show')  		
+		$('#order-info').modal('show')			

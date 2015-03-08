@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
 
   def search
     @text=params[:text]
-    @products=Product.search(params[:text])
+    @products=Product.search(params[:text]).page(params[:page])
     @title="Результаты поиска"
   end
 

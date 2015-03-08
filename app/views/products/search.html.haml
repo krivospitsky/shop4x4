@@ -1,5 +1,15 @@
-%h1= @text
+%h1= @title
 .row
-  - @products.each do |product|
-    =render "/products/show_item", :product=>product, :cart_item=>@current_cart.cart_items.new(product_id: product.id, quantity:1)
+	=form_tag catalog_search_path, method: 'get', id: 'search_form', role: 'search' do
+		.input-group
+			%input.form-control{type:"text", placeholder:"Поиск", name: "text", value: @text}
+			%span.input-group-btn.input-group-sm
+				%button.btn.btn-default.btn.xs{type: 'submit'}
+					%span.glyphicon.glyphicon-search
+%br
+.row
+	= paginate @products 
+	- @products.each do |product|
+		=render "/products/show_item", product: product, category: nil, cart_item: @current_cart.cart_items.new(product_id: product.id, quantity:1)
+	= paginate @products 
 

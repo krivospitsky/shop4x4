@@ -8,6 +8,10 @@ class UserMailer < ActionMailer::Base
   end
   def new_order(order)
     @order=order
-    mail(to:Settings.owner_email, subject:"Новый заказ", from:order.email)
+    if order.email
+    	mail(to:Settings.owner_email, subject:"Новый заказ", from:order.email)
+    else
+    	mail(to:Settings.owner_email, subject:"Новый заказ", from:Settings.owner_email)
+    end
   end
 end

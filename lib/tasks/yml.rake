@@ -23,8 +23,14 @@ namespace :yml do
 			parent_id=node.attr('parentId')
 			id=node.attr('id')
 
-			skip_cats << id if skip_cats.include?(parent_id)
-			next if skip_cats.include?(id);
+			skip_cats << id if skip_cats.include?(parent_id.to_i)
+			if skip_cats.include?(id.to_i)
+				if category=Category.find_by(external_id: "#{supplier}_#{id}")
+					category.products.delete_all
+					category.delete
+				end
+				next
+			end
 
 			name=node.content.strip
 			if supplier == 'salmo'
@@ -45,7 +51,7 @@ namespace :yml do
 
 		yml.xpath('//offers/offer').each do |node|
 			cat_id=node.xpath('categoryId').first.content
-			next if skip_cats.include?(cat_id)
+			next if skip_cats.include?(cat_id.to_i)
 
 			id=node.attr('id')
 			

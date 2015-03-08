@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
 
     if @order.save
-      UserMailer.new_order(@order).deliver      
+      UserMailer.new_order(@order).deliver 
       UserMailer.order_confirmation(@order).deliver if @order.email
       session[:cart_id]=nil
       flash[:info]='Заказ успешно создан'

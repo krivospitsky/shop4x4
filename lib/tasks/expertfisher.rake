@@ -15,7 +15,7 @@ namespace :expertfisher do
 			sub_url=subcat.attr('href')
 			ext_id=sub_url[/\/([^\/]+?)\.aspx/,1]
 			
-			if skip_cat.exist?(ext_id)
+			if skip_cat.include?(ext_id)
 				if category=Category.find_by(external_id: ext_id)
 					category.products.delte_all
 					category.delete

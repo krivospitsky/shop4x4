@@ -89,5 +89,7 @@ Shop::Application.routes.draw do
     resources :promotions
     get '/settings/edit' => '/admin/settings#edit'
     post '/settings/edit' => '/admin/settings#update'
+    get '/moscanella/new' => '/admin/moscanella#new'
+    post '/moscanella/import' => '/admin/moscanella#import'
   end
 end

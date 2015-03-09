@@ -1,0 +1,3 @@
+= form_tag('/admin/moscanella/import', method: :post, multipart: true) do
+    = file_field_tag  "upload[xls]"
+    =submit_tag :Import

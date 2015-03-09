@@ -23,7 +23,7 @@ namespace :expertfisher do
 				next
 			end
 
-			category=Category.find_or_create_by(external_id: ext_id)
+			category=Category.find_or_initialize_by(external_id: ext_id)
 			if category.new_record?
 				category.parent=Category.find_by(external_id: curr_ext_id) if curr_ext_id
 				category.external_id=ext_id
@@ -39,7 +39,7 @@ namespace :expertfisher do
 		cat.xpath('//td[@class="item"]/div/a/@href').each do |prod_link|
 			prod = Nokogiri::HTML(open(prod_link))
 			sku = 'expertfisher_'+prod_link.content[/\/([^\/]+?)\.aspx/, 1]
-			product=Product.find_or_create_by(sku: sku)
+			product=Product.find_or_initialize_by(sku: sku)
 
 			product.name=prod.xpath('//div[@class="block description clearfix"]/h1').first.content
 			puts product.name
@@ -66,32 +66,32 @@ namespace :expertfisher do
 
 			attr_names=[]
 			prod.xpath('id("ctl00_ctl00_cph1_cphLeft_ProductVariantList_pnlMain")/div[3]/table/tr').first.xpath('th')[3..-4].each do  |attr_name|
-				attr_names<<attr_name.content
+				attr_names<<attr_name.content.strip
 			end
 
 			prod.xpath('id("ctl00_ctl00_cph1_cphLeft_ProductVariantList_pnlMain")/div/table/tr')[1..-1].each do |var|
 				if var.xpath('td').first
-					variant_sku=var.xpath('td[3]/b').first.content
-					variant=product.variants.find_or_create_by(sku: variant_sku)
-					variant.sku=variant_sku
-					variant.price=var.xpath('td[last()-2]/b').first.content.delete(' ').gsub(/[[:space:]]/,'')
-					variant.enabled = true
-					variant.availability='Доставка 2-3 дня'
-
-					i=0
-					var.xpath('td')[3..-4].each do |attrib|
-						variant.attr[attr_names[i]]=attrib.content
-						i+=1
-					end
-
-					if !variant.image?
-						if img=var.xpath('td[2]//img').first
-							pic_url=img.attr('src')
-							variant.remote_image_url=pic_url
+					variant_sku=var.xpath('td[3]/b').first.content.strip
+					variant=product.find_or_initialize_by(sku: variant_sku)
+						variant.sku=variant_sku
+						variant.price=var.xpath('td[last()-2]/b').first.content.delete(' ').gsub(/[[:space:]]/,'')
+						variant.enabled = true
+						variant.availability='Доставка 2-3 дня'
+						i=0
+						var.xpath('td')[3..-4].each do |attrib|
+							variant.attr[attr_names[i]]=attrib.content.strip
+							i+=1
 						end
+
+						if !variant.image?
+							if img=var.xpath('td[2]//img').first
+								pic_url=img.attr('src')
+								variant.remote_image_url=pic_url
+							end
+						end
+						variant.name=nil
+					if variant.new_record?
 					end
-					
-					variant.name=nil
 					variant.save!
 				end
 			end				

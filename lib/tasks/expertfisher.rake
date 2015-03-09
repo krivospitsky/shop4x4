@@ -17,7 +17,7 @@ namespace :expertfisher do
 			
 			if skip_cat.include?(ext_id)
 				if category=Category.find_by(external_id: ext_id)
-					category.products.delte_all
+					category.products.delete_all
 					category.delete
 				end
 				next
@@ -72,12 +72,13 @@ namespace :expertfisher do
 			prod.xpath('id("ctl00_ctl00_cph1_cphLeft_ProductVariantList_pnlMain")/div/table/tr')[1..-1].each do |var|
 				if var.xpath('td').first
 					variant_sku=var.xpath('td[3]/b').first.content
-					variant=product.variants.find_or_initialize_by(sku: variant_sku)
+					variant=product.variants.find_or_initialize_by(sku: variant_sku) || product.variants.find_or_initialize_by(sku: variant_sku.strip)
 						variant.sku=variant_sku.strip
 						variant.price=var.xpath('td[last()-2]/b').first.content.delete(' ').gsub(/[[:space:]]/,'')
 						variant.enabled = true
 						variant.availability='Доставка 2-3 дня'
 						i=0
+						variant.attr={}
 						var.xpath('td')[3..-4].each do |attrib|
 							variant.attr[attr_names[i]]=attrib.content.strip
 							i+=1

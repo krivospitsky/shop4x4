@@ -7,6 +7,7 @@ namespace :expertfisher do
 	end
 
 	def ProcessCategory(url)
+		skip_cat=['347-60-0-vobliery-raid', '187-0-0-spinnierbieity-i-bazzbieity', '163-1-0-lieski-plietienyie-shnury-pontoon21', '223-31-0-kriuchki-s-povodkom-i-osnastki-ownercultiva', '90-33-0-svietliachki-briscola', '196-1-0-viertliuzhki-i-karabiny-pontoon21', '331-54-0-viertliuzhki-i-karabiny-axis', '384-54-0-povodki-axis', '304-6-0-aksiessuary-cf-design', '393-61-0-podsaki-snowbee', '373-61-0-zhiliety-snowbee', '369-61-0-kurtki-i-briuki-snowbee', '374-0-0-pierchatki', '73-33-0-nabory-antienn-briscola', '298-0-0-sumki', '296-0-0-iashchiki-i-chiemodany', '117-5-0-nakhlystovyie-udilishcha-banax', '121-0-0-iskusstviennyie-mushki']
 		cat = Nokogiri::HTML(open(url))
 		curr_ext_id=url[/\/([^\/]+?)\.aspx/,1]
 
@@ -14,6 +15,14 @@ namespace :expertfisher do
 			sub_url=subcat.attr('href')
 			ext_id=sub_url[/\/([^\/]+?)\.aspx/,1]
 			
+			if skip_cat.exist?(ext_id)
+				if category=Category.find_by(external_id: ext_id)
+					category.products.delte_all
+					category.delete
+				end
+				next
+			end
+
 			category=Category.find_or_create_by(external_id: ext_id)
 			if category.new_record?
 				category.parent=Category.find_by(external_id: curr_ext_id) if curr_ext_id

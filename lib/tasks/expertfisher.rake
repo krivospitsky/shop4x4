@@ -75,8 +75,9 @@ namespace :expertfisher do
 					variant=product.variants.find_or_create_by(sku: variant_sku)
 					variant.sku=variant_sku
 					variant.price=var.xpath('td[last()-2]/b').first.content.delete(' ').gsub(/[[:space:]]/,'')
-					variant.enabled = (var.xpath('td[last()-2]/p/span/span').first && var.xpath('td[last()-2]/p/span/span').first.content == 'В наличии')
-					
+					variant.enabled = true
+					variant.availability='Доставка 2-3 дня'
+
 					i=0
 					var.xpath('td')[3..-4].each do |attrib|
 						variant.attr[attr_names[i]]=attrib.content

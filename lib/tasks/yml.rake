@@ -113,7 +113,9 @@ namespace :yml do
 			variant.price=price
 			variant.enabled=true
 
-			variant.availability='Доставка 5 дней' if supplier=='nova'
+			variant.availability='Доставка 2-7 дней' if supplier=='nova'
+			variant.availability='Доставка 7 дней' if supplier=='camp'
+			variant.availability='Доставка 14 дней' if supplier=='salmo'
 
 			variant.attr['Цвет']=color if color
 			variant.attr['Размер']=size if size

@@ -65,9 +65,7 @@
       -@order.cart.cart_items.all.each do |item|
         %tr
           %td
-            =link_to product_path(item.product) do
-              =image_tag item.product.images.first.image.url(:thumb)
-              =item.product.name
+            =item.product.name
           %td
             %small
               = item.product.price_str

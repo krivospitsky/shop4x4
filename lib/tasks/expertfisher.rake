@@ -48,7 +48,8 @@ namespace :expertfisher do
 			product.sku=sku
 			if descr=prod.xpath('//div[@class="block description clearfix"]').first
 				descr.xpath('h1').remove
-				img_str=descr.xpath('div[@id="ctl00_ctl00_cph1_cphLeft_ctrlProductDescription_teaserPanel"]').first.content
+				img_o=descr.xpath('div[@id="ctl00_ctl00_cph1_cphLeft_ctrlProductDescription_teaserPanel"]')
+				img_str=img_o.first.content if img_o.first
 				descr.xpath('div[@id="ctl00_ctl00_cph1_cphLeft_ctrlProductDescription_teaserPanel"]').remove
 				descr.css('img').each do |img|
 					url=img.attr('src')

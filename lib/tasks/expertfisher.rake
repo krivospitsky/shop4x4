@@ -72,7 +72,7 @@ namespace :expertfisher do
 			prod.xpath('id("ctl00_ctl00_cph1_cphLeft_ProductVariantList_pnlMain")/div/table/tr')[1..-1].each do |var|
 				if var.xpath('td').first
 					variant_sku=var.xpath('td[3]/b').first.content
-					variant=product.find_or_initialize_by(sku: variant_sku)
+					variant=product.variants.find_or_initialize_by(sku: variant_sku)
 						variant.sku=variant_sku.strip
 						variant.price=var.xpath('td[last()-2]/b').first.content.delete(' ').gsub(/[[:space:]]/,'')
 						variant.enabled = true

@@ -7,6 +7,6 @@ class Promotion < ActiveRecord::Base
 
   scope :enabled, -> { where(enabled: 't') }
   scope :current, -> { enabled.where('start_at< ? or end_at> ?', Time.now, Time.now) }
-  scope :current_banners, -> {enabled.where("banner <> ''")}
+  scope :current_banners, -> {enabled.where(has_banner: 't')}
 
 end

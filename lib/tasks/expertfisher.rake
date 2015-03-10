@@ -101,7 +101,7 @@ namespace :expertfisher do
 			end				
 			product.save!
 
-			if product.images.count == 0
+			if product.images.count == 0 && img_str
 				img_str.scan(/push\('(.+?)'/).each do |pic|
 					pic_url=pic[0]
 					begin

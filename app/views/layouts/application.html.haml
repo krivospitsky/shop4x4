@@ -64,8 +64,15 @@
       %nav.navbar.text-center
         %a.btn.btn-primary.navbar-btn{href: root_path}
           Главная
-        %a.btn.btn-primary.navbar-btn{href: catalog_path}
-          Каталог
+        .btn-group
+          %a.btn.btn-primary.navbar-btn.dropdown-toggle{'data-toggle'=>'dropdown'}
+            Каталог
+            %span.caret
+          %ul.dropdown-menu
+            -Category.root.each do |cat|        
+              %li
+                =link_to cat.name, category_path(cat.path, cat.id)
+
         -Page.in_menu.each do |page|
           =link_to page.name, page_path(page), class: 'btn btn-primary navbar-btn'
 
@@ -117,8 +124,6 @@
             %ul
               %li
                 =link_to 'Главная', root_path
-              %li
-                =link_to 'Каталог', catalog_path                    
               -Page.in_footer.each do |page|
                 %li
                   =link_to page.name, page_path(page)

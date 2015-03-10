@@ -9,7 +9,8 @@ module ApplicationHelper
   end
 
   def catalog_path
-	root_path
+  	'/catalog'
+	#root_path
   end
 
 

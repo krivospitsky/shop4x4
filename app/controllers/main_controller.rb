@@ -1,4 +1,6 @@
 class MainController < ApplicationController
-  def index
+  def show
+  	@banners=Promotion.current_banners
+  	@categories=Category.root
   end
 end

@@ -19,6 +19,7 @@ class Category < ActiveRecord::Base
 
   default_scope -> {order(sort_order: :asc)}
   scope :enabled, -> { where(enabled: 't') }
+  scope :root, -> {enabled.where(parent: nil) }
 
   include RankedModel
     ranks :sort_order

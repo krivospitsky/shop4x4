@@ -26,7 +26,8 @@ Shop::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
 #  root 'pages#show', id: Page.first.id
-  root 'products#index'
+#  root 'products#index'
+  root 'main#show'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

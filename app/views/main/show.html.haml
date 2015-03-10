@@ -1,0 +1,15 @@
+.row
+  -if @banners.count>0
+    %ul#lightSlider
+      -@banners.each do |banner|
+        %li
+          =image_tag(banner.banner.url, {title:banner.name, alt:banner.name})
+.row
+  -@categories.each do |cat|
+    .col-md-3.col-sm-4.col-xs-12
+      .thumbnail.shadow
+        .name.text-center
+          =link_to cat.name, category_path(cat.path, cat)
+        .image.text-center
+          =link_to image_tag(cat.image.url(:product_list)), category_path(cat.path, cat) if cat.image
+

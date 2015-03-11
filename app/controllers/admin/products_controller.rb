@@ -6,6 +6,18 @@ class Admin::ProductsController < Admin::BaseController
   #     format.json { render json: @products.map { |product| product.as_json(:only => :id, :methods => :name) } }
   #   end
   # end
+  def index
+    if cat_id=params[:category] || session[:admin_current_category]
+      @category=Category.find(cat_id)
+      session[:admin_current_category]=cat_id
+      @products = Kaminari.paginate_array(@category.products_in_all_sub_cats).page(params[:page])
+    else
+      @products=Product.all.page(params[:page]).per(50)
+    end
+    @categories=Category.all
+    respond_with @products
+  end
+
 
   private
 

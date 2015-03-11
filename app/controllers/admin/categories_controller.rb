@@ -7,6 +7,12 @@ class Admin::CategoriesController < Admin::BaseController
   #   end
   # end
 
+
+  def index
+    @categories=Category.root
+    respond_with @categories
+  end
+
   private
 
   def permitted_params

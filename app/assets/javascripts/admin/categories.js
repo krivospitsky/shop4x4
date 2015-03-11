@@ -1,5 +1,5 @@
 $(window).load(function(){
-  $( "#categories_list.sortable" ).sortable({
+  $( ".sortable-cat" ).sortable({
     update : function (event, ui) { 
     	id=ui.item.attr('id')
     	if (id) {
@@ -12,5 +12,5 @@ $(window).load(function(){
 		}
     }
   });
-  $( "#sortable" ).disableSelection();
+  $( ".sortable-cat" ).disableSelection();
 });

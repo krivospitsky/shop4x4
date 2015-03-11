@@ -10,7 +10,7 @@
 			.row
 				.col-md-9= @category.description
 
-		-if @category && !@category.parent 
+		-if @category && !@category.parent && !(@products && ! @products.empty?)
 			.categories_list
 				%ul
 					- @category.children.each do |child|					

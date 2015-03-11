@@ -10,3 +10,8 @@
 {
   width:100px;
 }
+
+.control-label.required:after {
+  content:"*";
+  color:red;
+}

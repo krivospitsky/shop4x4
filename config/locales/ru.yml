@@ -61,11 +61,22 @@ ru:
         few: Акции
         many: Акций
         other: Акций
+      order:
+        one: Заказ
+        few: Заказа
+        many: Заказов
+        other: Заказа
     attributes:
       page:
         name: Название
         text: Текст
         position: Показывать в
+      order:
+        phone: Номер телефона
+    errors:
+      models:
+        order:
+          header_message: Ошибка оформления заказа
   views:
     pagination:
       first: '<<'

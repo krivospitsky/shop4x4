@@ -44,42 +44,41 @@
 					.modal-body
 						- if @order.errors.any?
 							.alert.alert-danger
-								%h2= "#{pluralize(@order.errors.count, "error")} prohibited this order from being saved:"
+								%h2 Ошибка оформления заказа
 								%ul
 									- @order.errors.full_messages.each do |msg|
 										%li= msg
-						= form_for @order, class:'form-horizontal' do |f|
-							.row
-								.col-md-5.col-md-offset-1
-									.form-group
-										%label.control-label Фамилия, имя
-										=f.text_field :name, class:'form-control input-block-level'
-									.form-group
-										%label.control-label E-Mail
-										=f.text_field :email, class:'form-control input-block-level'
-									.form-group
-										%label.control-label Телефон
-										=f.text_field :phone, class:'form-control input-block-level'
-								.col-md-5.col-md-offset-1
-									.form-group
-										%label.control-label Индекс
-										=f.text_field :zip, class:'form-control input-block-level'
-									.form-group
-										%label.control-label Город
-										=f.text_field :city, class:'form-control input-block-level'
-									.form-group
-										%label.control-label Адрес
-										=f.text_field :address, class:'form-control input-block-level'
-							.row
-								.col-md-12
-									.form-group
-										%label.control-label Комментарий
-										=f.text_area :comment, class:'form-control input-block-level'
-						.modal-footer
-							%button.btn{"data-dismiss"=>"modal", "aria-hidden"=>"true"}
-								Отменить
-							%button.btn.btn-primary{type:'submit'}
-								Оформить заказ
+						.row
+							.col-md-5.col-md-offset-1
+								.form-group
+									%label.control-label Фамилия, имя
+									=f.text_field :name, class:'form-control input-block-level'
+								.form-group
+									%label.control-label.required E-Mail
+									=f.text_field :email, class:'form-control input-block-level'
+								.form-group
+									%label.control-label.required Телефон
+									=f.text_field :phone, class:'form-control input-block-level'
+							.col-md-5.col-md-offset-1
+								.form-group
+									%label.control-label Индекс
+									=f.text_field :zip, class:'form-control input-block-level'
+								.form-group
+									%label.control-label Город
+									=f.text_field :city, class:'form-control input-block-level'
+								.form-group
+									%label.control-label Адрес
+									=f.text_field :address, class:'form-control input-block-level'
+						.row
+							.col-md-12
+								.form-group
+									%label.control-label Комментарий
+									=f.text_area :comment, class:'form-control input-block-level'
+					.modal-footer
+						%button.btn{"data-dismiss"=>"modal", "aria-hidden"=>"true"}
+							Отменить
+						%button.btn.btn-primary{type:'submit'}
+							Оформить заказ
 -else
 	%p.bg-primary
 		Корзина пуста

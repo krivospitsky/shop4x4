@@ -34,7 +34,7 @@ class ProductsController < ApplicationController
     @products=[]
     if params[:category_id]
       @category = Category.find(params[:category_id])
-      if @category.parent
+      if @category.parent || @category.products.count>0
         @products = Kaminari.paginate_array(@category.products_in_all_sub_cats).page(params[:page])
       end
       @title = @category.name

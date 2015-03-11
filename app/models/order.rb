@@ -5,7 +5,7 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :cart_items, allow_destroy:true
 
   # validates :name, presence: true
-#  validates :email, presence: true
+  validates :email, presence: true
   validates :phone, presence: true
 
   state_machine :state, :initial => :Новый do

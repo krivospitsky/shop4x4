@@ -14,7 +14,7 @@
         -if product.images.first
           =image_tag(product.images.first.image.url(thumb))
         -else
-          =image_tag('product_list_no_photo.jpg')
+          =image_tag('product_list_no_photo.png')
     .price.text-center
       Цена 
       =product.price_str

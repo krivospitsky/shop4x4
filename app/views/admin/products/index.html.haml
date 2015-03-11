@@ -1,8 +1,8 @@
 =form_tag '/admin/products', method: :get do
   -if @category
-    =select_tag :category, options_from_collection_for_select(@categories, "id", :name_with_path, selected: @category.id)
+    =select_tag :category, options_from_collection_for_select(@categories, "id", :name_with_path, selected: @category.id), include_blank: true
   -else
-    =select_tag :category, options_from_collection_for_select(@categories, "id", :name_with_path)
+    =select_tag :category, options_from_collection_for_select(@categories, "id", :name_with_path), include_blank: true
   =submit_tag 'Отфильтровать'
 
 = paginate @products

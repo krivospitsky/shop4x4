@@ -7,11 +7,13 @@ class Admin::ProductsController < Admin::BaseController
   #   end
   # end
   def index
-    if cat_id=params[:category] || session[:admin_current_category]
+    cat_id=params[:category] || session[:admin_current_category]
+    if cat_id && cat_id!=''
       @category=Category.find(cat_id)
       session[:admin_current_category]=cat_id
       @products = Kaminari.paginate_array(@category.products_in_all_sub_cats).page(params[:page])
     else
+      session[:admin_current_category]=nil
       @products=Product.all.page(params[:page]).per(50)
     end
     @categories=Category.all

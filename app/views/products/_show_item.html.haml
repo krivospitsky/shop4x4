@@ -10,7 +10,11 @@
     .name.text-center
       =link_to product.name, product_path(product, category)
     .image.text-center
-      =link_to image_tag(product.images.first.image.url(thumb)), product_path(product, category) if product.images.first
+      =link_to product_path(product, category) do
+        -if product.images.first
+          =image_tag(product.images.first.image.url(thumb))
+        -else
+          =image_tag('product_list_no_photo.jpg')
     .price.text-center
       Цена 
       =product.price_str

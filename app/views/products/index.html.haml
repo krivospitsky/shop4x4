@@ -9,10 +9,21 @@
 		-if @category
 			.row
 				.col-md-9= @category.description
-			/ -if @category.children
-			/ 	.row
-			/ 		- @category.children.each do |child|
-			/ 			=  child.name
+
+		-if @category && !@category.parent 
+			.categories_list
+				%ul
+					- @category.children.each do |child|					
+						%li
+							= link_to child.name, category_path(child.path, child.id)
+							-if child.children.count>0
+								%ul
+									- child.children.each do |sub_child|					
+										%li
+											= link_to sub_child.name, category_path(sub_child.path, sub_child.id)
+
+
+
 
 		-if @products && ! @products.empty?
 			= paginate @products 
@@ -20,7 +31,3 @@
 				- @products.each do |product|
 					=render "/products/show_item", category: @category, product: product, :cart_item=>@current_cart.cart_items.new(product_id: product.id, quantity:1)
 			= paginate @products 
-		-else
-			.row
-				Товары не найдены
-

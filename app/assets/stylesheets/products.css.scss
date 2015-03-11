@@ -134,3 +134,28 @@ span.new-price{
     max-width:170px;	
 //	padding-top: 10px;
 }
+
+@mixin column($num) {
+	-webkit-column-count: $num; /* Chrome, Safari, Opera */
+    -moz-column-count: $num; /* Firefox */
+    column-count: $num;
+}
+
+.categories_list{
+	@include column(3);
+    ul{
+    	list-style-type:none;
+    	font-weight: 600;
+		padding: 0; /* Убираем поля */
+		margin-left: 0px; /* Отступ слева */
+    	ul{
+			padding-top: 10px;
+	    	font-weight: 400;
+    	}
+    }
+    li{
+		-webkit-column-break-inside: avoid; /* Chrome, Safari, Opera */
+		page-break-inside: avoid; /* Firefox */
+		break-inside: avoid; /* IE 10+ */
+    }
+ }

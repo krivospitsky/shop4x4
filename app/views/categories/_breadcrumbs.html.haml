@@ -1,7 +1,7 @@
 -if @breadcrumbs && @breadcrumbs.size>0
 	%ol.breadcrumb
 		%li
-			=link_to 'Каталог', catalog_path()
+			=link_to 'Главная', root_path()
 		-@breadcrumbs.each do |cat|
 			-if cat==@breadcrumbs.last
 				%li.active

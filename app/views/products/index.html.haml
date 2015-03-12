@@ -13,12 +13,12 @@
 		-if @category && !@category.parent && !(@products && ! @products.empty?)
 			.categories_list
 				%ul
-					- @category.children.each do |child|					
+					- @category.children.enabled.each do |child|					
 						%li
 							= link_to child.name, category_path(child.path, child.id)
 							-if child.children.count>0
 								%ul
-									- child.children.each do |sub_child|					
+									- child.children.enabled.each do |sub_child|					
 										%li
 											= link_to sub_child.name, category_path(sub_child.path, sub_child.id)
 

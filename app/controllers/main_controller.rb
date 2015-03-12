@@ -1,6 +1,6 @@
 class MainController < ApplicationController
   def show
   	@banners=Promotion.current_banners
-  	@categories=Category.root
+  	@categories=Category.root.enabled
   end
 end

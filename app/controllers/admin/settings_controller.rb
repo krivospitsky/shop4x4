@@ -7,6 +7,7 @@ class Admin::SettingsController < ApplicationController
     Settings.site_url=params[:settings][:site_url]
     Settings.owner_phone=params[:settings][:owner_phone]
     Settings.owner_email=params[:settings][:owner_email]
+    Settings.metrika=params[:settings][:metrika]
     Settings.disable_categories=(params[:settings][:disable_categories] == '1')
     Settings.hide_count_in_product=(params[:settings][:hide_count_in_product] == '1')
     Settings.enable_variants=(params[:settings][:enable_variants] == '1')

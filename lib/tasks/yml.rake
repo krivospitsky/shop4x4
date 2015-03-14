@@ -11,7 +11,7 @@ namespace :yml do
 		loaded_images=[]
 
 		if Rails.env == 'production'
-			url='http://www.novatour.ru/Services/ShopService/YMLPicturesGet?region=1608' if supplier == 'nova'
+			url='http://www.novatour.ru/Services/ShopService/YMLGet?region=1608' if supplier == 'nova'
 			url='http://www.camping.ru/prices/yandex.php' if supplier == 'camp'
 			url='http://www.salmoru.com/yandexshop.xml' if supplier == 'salmo'
 			yml = Nokogiri::XML(open(url))
